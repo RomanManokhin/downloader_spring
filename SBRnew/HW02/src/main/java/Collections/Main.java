@@ -11,7 +11,7 @@ public class Main{
 
         String[] preparedArrayOfStrings = inputText.toLowerCase().split(" ");
 
-        Map<String, Integer> hashMap = new HashMap<>();
+        Map<String, Integer> hashMap = new HashMap<String, Integer>();
 
         for (int i = 0; i < preparedArrayOfStrings.length; i++) {
             if (!hashMap.containsKey(preparedArrayOfStrings[i]))
@@ -26,7 +26,7 @@ public class Main{
 
 
         System.out.println("Задание 2 : \n");
-        List<String> list = new ArrayList<>(hashMap.keySet());
+        List<String> list = new ArrayList<String>(hashMap.keySet());
         list.sort((o1, o2) -> {
             if (o1.length() > o2.length()) {
                 return 1;
@@ -39,7 +39,7 @@ public class Main{
         System.out.println(list);
 
         System.out.println("\nЗадание 3 : \n");
-        for (var entry : hashMap.entrySet()) {
+        for (Map.Entry entry : hashMap.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
 

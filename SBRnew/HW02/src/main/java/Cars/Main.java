@@ -21,13 +21,13 @@ public class Main {
         List<Car> carTypeHatchback = new ArrayList<>();
         List<Car> carTypeCrossover = new ArrayList<>();
 
-        for (int i = 0; i < cars.size(); i++) {
-            if(cars.get(i).getType().equals("Седан")){
-                carTypeSedan.add(cars.get(i));
-            } else if (cars.get(i).getType().equals("Хэтчбек")) {
-                carTypeHatchback.add(cars.get(i));
+        for (Car car : cars) {
+            if (car.getType().equals("Седан")) {
+                carTypeSedan.add(car);
+            } else if (car.getType().equals("Хэтчбек")) {
+                carTypeHatchback.add(car);
             } else {
-                carTypeCrossover.add(cars.get(i));
+                carTypeCrossover.add(car);
             }
         }
 

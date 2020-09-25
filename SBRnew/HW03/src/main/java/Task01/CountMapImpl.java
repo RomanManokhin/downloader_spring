@@ -3,7 +3,7 @@ package Task01;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountMapImpl<T> implements CountMap {
+public class CountMapImpl<T> implements CountMap<T> {
 
     private Map<T, Integer> map;
     private int count;
@@ -13,24 +13,25 @@ public class CountMapImpl<T> implements CountMap {
     }
 
     // добавляет элемент в этот контейнер.
-    @Override
-    public void add(Object o) {
+
+    public void add(T o) {
         if (map.containsKey(o)) {
-            map.put((T) o, (map.get(o) + 1));
+            map.put(o, (map.get(o) + 1));
         } else {
-            map.put((T) o, 1);
+            map.put(o, 1);
         }
     }
 
+
     //Возвращает количество добавлений данного элемента
     @Override
-    public int getCount(Object o) {
+    public int getCount(T o) {
         return map.get(o);
     }
 
     //Удаляет элемент из контейнера и возвращает количество его добавлений(до удаления)
     @Override
-    public int remove(Object o) {
+    public int remove(T o) {
         count = map.get(o);
         map.remove(o);
         return count;
@@ -39,39 +40,40 @@ public class CountMapImpl<T> implements CountMap {
     //количество разных элементов
     @Override
     public int size() {
-        count = 0;
-        for(Object i : map.keySet()){
-            if(map.keySet().contains(i)){
-                count++;
-            }
-        }
-        return count;
+        return map.size();
     }
 
     //Добавить все элементы из source в текущий контейнер,
     // при совпадении ключей,     суммировать значения
     @Override
-    public void addAll(CountMap source) {
-
+    public void addAll(CountMap<T> source) {
+        source.toMap().forEach((key, value) -> {
+            if (map.containsKey(key)) {
+                map.put(key, (map.get(key) + value));
+            } else {
+                map.put(key, value);
+            }
+        });
     }
 
     //Вернуть java.util.Map. ключ - добавленный элемент,
     // значение - количество его добавлений
     @Override
-    public java.util.Map toMap() {
-        return null;
+    public Map<T, Integer> toMap() {
+        return map;
     }
 
     //Тот же самый контракт как и toMap(), только всю информацию записать в destination
     @Override
-    public void toMap(java.util.Map destination) {
-
+    public void toMap(Map<T, Integer> destination) {
+        destination = map;
+        System.out.println(destination);
     }
 
     @Override
     public String toString() {
         return "CountMapImpl{" +
-                "map=" + map.keySet() + map.values() +
+                "map=" + map +
                 '}';
     }
 }
