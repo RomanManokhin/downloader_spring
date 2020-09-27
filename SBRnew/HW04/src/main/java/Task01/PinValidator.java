@@ -41,9 +41,11 @@ public class PinValidator {
             } else {
                 System.out.println("Pin is OK");
                 flag = true;
+                TerminalServer terminalServer = new TerminalServer();
+                terminalServer.print();
                 break;
             }
-//            if(flag) break;
+
         }
         return flag;
     }

@@ -1,28 +1,32 @@
 package Task01;
 
-public class TerminalImpl<TerminalServer, PinValidator> implements Terminal {
+public class TerminalImpl implements Terminal {
 
-    private final TerminalServer server;
-    private final PinValidator pinValidator;
+//    private final TerminalServer server;
+//    private final PinValidator pinValidator;
 
-    public TerminalImpl(TerminalServer server, PinValidator pinValidator) {
-        this.server = server;
-        this.pinValidator = pinValidator;
-    }
-
+//    public TerminalImpl(TerminalServer server, PinValidator pinValidator) {
+//        this.server = server;
+//        this.pinValidator = pinValidator;
+//    }
+int money = 10000;
 
     @Override
     public void checkAccountStatus() {
 
-    }
-
-    @Override
-    public void withDrawMoney() {
+        System.out.println(money + "\n");
 
     }
 
     @Override
-    public void withPutMoney() {
+    public int withDrawMoney(int DrawMoney) {
+        money -= DrawMoney;
+        return money;
+    }
 
+    @Override
+    public int withPutMoney(int PutMoney) {
+        money += PutMoney;
+        return money;
     }
 }

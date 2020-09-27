@@ -4,7 +4,7 @@ public interface Terminal {
 
     public void checkAccountStatus();
 
-    public void withDrawMoney();
+    public int withDrawMoney(int DrawMoney);
 
-    public void withPutMoney();
+    public int withPutMoney(int PutMoney);
 }
