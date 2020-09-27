@@ -9,7 +9,7 @@ public class TerminalImpl implements Terminal {
 //        this.server = server;
 //        this.pinValidator = pinValidator;
 //    }
-int money = 10000;
+    private int money = 1000;
 
     @Override
     public void checkAccountStatus() {
@@ -20,7 +20,16 @@ int money = 10000;
 
     @Override
     public int withDrawMoney(int DrawMoney) {
-        money -= DrawMoney;
+
+        try {
+            if((money -= DrawMoney) < 0){
+                throw new RuntimeException();
+            }
+        } catch (RuntimeException e){
+            TerminalServer t = new TerminalServer();
+            System.out.println("Not enough money to complete the operation\n");
+            t.print();
+        }
         return money;
     }
 
