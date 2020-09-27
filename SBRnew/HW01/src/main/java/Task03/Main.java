@@ -1,4 +1,4 @@
-package HW01.Task03;
+package Task03;
 import java.util.Scanner;
 
 public class Main {
