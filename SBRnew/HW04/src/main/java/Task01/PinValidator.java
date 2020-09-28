@@ -12,8 +12,9 @@ public class PinValidator {
     int countForAccess = 0;
     int countForMaxWrongPIN = 0;
     int number = 0;
-    boolean flag = false;
-    public boolean access() {
+    boolean flagForThreeFault = false;
+
+    public void access() throws InterruptedException {
         while (countForMaxWrongPIN < 3) {
             countForAccess = 0;
             while (countForAccess < 4) {
@@ -30,23 +31,21 @@ public class PinValidator {
 
             boolean result = Arrays.equals(realPassword, testPassword);
             if (!result) {
-                countForMaxWrongPIN++;
                 if (countForMaxWrongPIN == 3) {
                     System.out.println("Wait 10 seconds");
-                    flag = false;
+                    Thread.sleep(10000);
+                    flagForThreeFault = false;
                 } else {
                     System.out.println("Wrong PIN");
                 }
-
             } else {
                 System.out.println("Pin is OK");
-                flag = true;
+                flagForThreeFault = true;
                 TerminalServer terminalServer = new TerminalServer();
                 terminalServer.print();
-                break;
+//                break;
             }
-
         }
-        return flag;
     }
+
 }
