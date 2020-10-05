@@ -12,12 +12,22 @@ public class PinValidator {
     int countForAccess = 0;
     int countForMaxWrongPIN = 0;
     int number = 0;
-    boolean flagForThreeFault = false;
-
+//    boolean flagForThreeFault = false;
+    boolean result = true;
     public void access() throws InterruptedException {
-        while (countForMaxWrongPIN < 3) {
+        while (countForMaxWrongPIN < 4) {
             countForAccess = 0;
             while (countForAccess < 4) {
+                if (!result) {
+                    result = true;
+                    countForAccess = 0;
+                    if (countForMaxWrongPIN == 3) {
+                        System.out.println("Wait 10 seconds");
+                        Thread.sleep(10000);
+                    } else {
+                        System.out.println("Wrong PIN");
+                    }
+                }
                 System.out.print("Write number : ");
                 String input = in.nextLine();
                 try {
@@ -29,23 +39,27 @@ public class PinValidator {
                 }
             }
 
-            boolean result = Arrays.equals(realPassword, testPassword);
-            if (!result) {
-                if (countForMaxWrongPIN == 3) {
-                    System.out.println("Wait 10 seconds");
-                    Thread.sleep(10000);
-                    flagForThreeFault = false;
-                } else {
-                    System.out.println("Wrong PIN");
-                }
-            } else {
+            result = Arrays.equals(realPassword, testPassword);
+            countForMaxWrongPIN++;
+            if(result) {
                 System.out.println("Pin is OK");
-                flagForThreeFault = true;
                 TerminalServer terminalServer = new TerminalServer();
                 terminalServer.print();
-//                break;
             }
+//            if (!result) {
+//                if (countForMaxWrongPIN == 3) {
+//                    System.out.println("Wait 10 seconds");
+//                    Thread.sleep(10000);
+//                    flagForThreeFault = false;
+//                } else {
+//                    System.out.println("Wrong PIN");
+//                }
+//            } else {
+//                System.out.println("Pin is OK");
+//                flagForThreeFault = true;
+//                TerminalServer terminalServer = new TerminalServer();
+//                terminalServer.print();
+//            }
         }
     }
-
 }

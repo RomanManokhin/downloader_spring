@@ -2,14 +2,11 @@ package Task01;
 
 public class TerminalImpl implements Terminal {
 
-//    private final TerminalServer server;
-//    private final PinValidator pinValidator;
+    private final TerminalServer server = new TerminalServer();
+    private final PinValidator pinValidator = new PinValidator();
 
-//    public TerminalImpl(TerminalServer server, PinValidator pinValidator) {
-//        this.server = server;
-//        this.pinValidator = pinValidator;
-//    }
-    private int money = 1000;
+
+    private int money = 10000;
 
     @Override
     public void checkAccountStatus() {

@@ -1,11 +1,13 @@
 package Task01;
 
+import java.lang.reflect.Method;
+
 public class CalculatorImpl implements Calculator {
     int result;
     private int result2;
     String text;
-    private String text2;
     public static final String MONDAY = "MONDAY";
+    public static final String SUNDAY = "SUNDAY1";
 
     @Override
     public int calc(int number) {
@@ -48,11 +50,5 @@ public class CalculatorImpl implements Calculator {
         this.text = text;
     }
 
-    public String getText2() {
-        return text2;
-    }
 
-    public void setText2(String text2) {
-        this.text2 = text2;
-    }
 }
