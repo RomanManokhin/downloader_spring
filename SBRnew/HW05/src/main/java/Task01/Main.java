@@ -1,19 +1,48 @@
 package Task01;
 
+import com.sun.deploy.net.proxy.ProxyUtils;
+import test.ValidLength;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class Main {
+
+    private static void run(Calculator calculator) {
+        System.out.println(calculator.calc(5));
+        System.out.println(calculator.calc(4));
+        System.out.println(calculator.calc(3));
+        System.out.println(calculator.calc(2));
+
+    }
+
+//    public static void annotationMethod(Object object) throws IllegalAccessException {
+//        Class<?> clazz = object.getClass();
+//        for (Field field : clazz.getDeclaredFields()) {
+//            field.setAccessible(true);
+//            if(field.isAnnotationPresent(ValidLength.class) && field.getType() == String.class){
+//                ValidLength a = field.getAnnotation(ValidLength.class);
+//                int min = a.max();
+//                int max = a.max();
+//                String value = field.get(object).toString();
+//                if(value.length() < min || value.length() > max){
+//                    throw new IllegalAccessException(field.getName() + " длинна данного поля должна быть в промежутке "
+//                            + min + " - " + max);
+//                }
+//            }
+//        }
+//    }
+
+
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException {
 
-        CalculatorImpl calculator = new CalculatorImpl();
+        Calculator calculator = new CalculatorImpl();
         /**
          * Вывод всех методов класс, включаея приватные
          */
-        try {
             System.out.println("Parent methods");
-            Method[] method1 = Calculator.class.getDeclaredMethods();
-            for (Method m : method1) {
+            Method[] methods = Calculator.class.getDeclaredMethods();
+            for (Method m : methods) {
                 System.out.println(m);
             }
             System.out.println("\nChild methods");
@@ -21,9 +50,6 @@ public class Main {
             for (Method method2 : method) {
                 System.out.println(method2);
             }
-        } catch (Exception e) {
-            e.getMessage();
-        }
         System.out.println("-----------------------------------");
 
         /**
@@ -45,7 +71,7 @@ public class Main {
          * public static final String MONDAY = " MONDAY "
          */
 
-        Field[] staticFields = CalculatorImpl.class.getFields(); //получаем имена поля
+        Field[] staticFields = CalculatorImpl.class.getFields();
         Object valueOfField;
         for (Field staticField : staticFields) {
             valueOfField = staticField.get(calculator);
@@ -62,7 +88,8 @@ public class Main {
         /**
          * Реализовать кэширующий прокси
          */
-
+        Calculator proxy = CacheProxy.factProxy(calculator);
+        run(proxy);
 
 
 

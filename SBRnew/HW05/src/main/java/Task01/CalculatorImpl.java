@@ -1,7 +1,5 @@
 package Task01;
 
-import java.lang.reflect.Method;
-
 public class CalculatorImpl implements Calculator {
     int result;
     private int result2;
@@ -29,7 +27,7 @@ public class CalculatorImpl implements Calculator {
     public int getResult() {
         return result;
     }
-
+    
     public void setResult(int result) {
         this.result = result;
     }
