@@ -74,6 +74,7 @@ public class AdminMenu {
                         priceForSale = in.nextInt();
                     } while (priceForSale <= 0);
 
+                    in.nextLine();
                     System.out.println("Введите название серии комиксов");
                     String comicSeries = in.nextLine();
 
@@ -89,7 +90,7 @@ public class AdminMenu {
                     System.out.println("new id = " + (comicBase.getComicDB().lastKey() + 1));
                     comicBase.addComic((comicBase.getComicDB().lastKey() + 1), nameComic, nameAuthor, numberOfPages, genre,
                             yearOfPublishing, costPrice, priceForSale, comicSeries, numberOfComic);
-                    ComicSerialization.serialize(comicBase.getComicDB(), "ComicDB.txt");
+                    Serialization.comicSerialize(comicBase.getComicDB(), "ComicDB.txt");
                     System.out.println("Комикс " + nameComic + " добавлен");
                     System.out.println("----------------------------------------");
                     printAdminMenu(login, comicBase, discount);
@@ -107,7 +108,7 @@ public class AdminMenu {
                         id = in.nextInt();
                         comicBase.getComicDB().remove(id);
                     } while (id <= 0);
-                    ComicSerialization.serialize(comicBase.getComicDB(), "ComicDB.txt");
+                    Serialization.comicSerialize(comicBase.getComicDB(), "ComicDB.txt");
                     printAdminMenu(login, comicBase, discount);
                     break;
                 }
@@ -257,7 +258,7 @@ public class AdminMenu {
                     } else {
                         System.out.println("Данный комикс закончился");
                     }
-                    ComicSerialization.serialize(comicBase.getComicDB(), "ComicDB.txt");
+                    Serialization.comicSerialize(comicBase.getComicDB(), "ComicDB.txt");
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 5: {
@@ -269,7 +270,7 @@ public class AdminMenu {
                     } else {
                         System.out.println("Данный комикс закончился");
                     }
-                    ComicSerialization.serialize(comicBase.getComicDB(), "ComicDB.txt");
+                    Serialization.comicSerialize(comicBase.getComicDB(), "ComicDB.txt");
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 6: {
@@ -324,7 +325,7 @@ public class AdminMenu {
                 case 9: {
                     System.out.println("Комиксы в базе");
 //                    comicBase.printComicDB();
-                    System.out.println(ComicDeSerialization.deserialize("ComicDB.txt"));
+                    System.out.println(DeSerialization.comicDeSerialize("ComicDB.txt"));
                     printAdminMenu(login, comicBase, discount);
                     break;
                 }
