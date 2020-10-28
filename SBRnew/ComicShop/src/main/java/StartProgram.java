@@ -10,7 +10,7 @@ public class StartProgram {
         String login = in.next();
         System.out.println("Введите пароль: ");
         String password = in.next();
-        PersonDB personDB = new PersonDB();
+
         if(login.equals(login)){
             ComicBase comicBase = new ComicBase();
             Discount discount = new Discount();
