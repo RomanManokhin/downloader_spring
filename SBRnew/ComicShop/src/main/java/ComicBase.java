@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 
-public class ComicBase {
+public class ComicBase implements Serializable {
 
         private SortedMap<Integer,Comic> comicDB = new TreeMap<>();
 
@@ -40,29 +41,28 @@ public class ComicBase {
                 2006, 22, 34, "", 2));
         comicDB.put(16, new Comic("The Kents", "DC Comic", 150, "western",
                 2012, 25, 32, "", 2));
+
+//        ComicBaseSerialization.serialize(comicDB, "ComicDB.txt");
+
+
     }
 
     void addComic(int id, String nameComic, String nameAuthor, int numberOfPages, String genre, int yearOfPublishing,
                   int costPrice, int priceForSale, String comicSeries, int numberOfComic){
         comicDB.put(id, new Comic(nameComic, nameAuthor, numberOfPages, genre, yearOfPublishing,
                 costPrice, priceForSale, comicSeries, numberOfComic));
+
+        ComicSerialization.serialize(comicDB.get(id), "ComicDB.txt");
     }
 
     void printComicDB(){
         comicDB.forEach((k,v) -> System.out.println("id = " + k + " : " + v));
     }
 
-    void changeComic(int id){
-
-    }
-
-
 
     public SortedMap<Integer, Comic> getComicDB() {
         return comicDB;
     }
 
-    public void setComicDB(SortedMap<Integer, Comic> comicDB) {
-        this.comicDB = comicDB;
-    }
+
 }

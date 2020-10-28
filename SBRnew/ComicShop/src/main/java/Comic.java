@@ -1,6 +1,6 @@
-import java.util.Date;
+import java.io.Serializable;
 
-public class Comic {
+public class Comic implements Serializable {
 
 
     private String nameComic; //название комикса
