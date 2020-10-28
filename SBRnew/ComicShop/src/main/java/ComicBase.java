@@ -5,7 +5,8 @@ import java.util.TreeMap;
 
 public class ComicBase implements Serializable {
 
-        private SortedMap<Integer,Comic> comicDB = new TreeMap<>();
+    private static final long serialVersionUID = -6718620417905587609L;
+    private SortedMap<Integer,Comic> comicDB = new TreeMap<>();
 
 
     public void comicFactory() {
@@ -42,17 +43,12 @@ public class ComicBase implements Serializable {
         comicDB.put(16, new Comic("The Kents", "DC Comic", 150, "western",
                 2012, 25, 32, "", 2));
 
-//        ComicBaseSerialization.serialize(comicDB, "ComicDB.txt");
-
-
     }
 
     void addComic(int id, String nameComic, String nameAuthor, int numberOfPages, String genre, int yearOfPublishing,
                   int costPrice, int priceForSale, String comicSeries, int numberOfComic){
         comicDB.put(id, new Comic(nameComic, nameAuthor, numberOfPages, genre, yearOfPublishing,
                 costPrice, priceForSale, comicSeries, numberOfComic));
-
-        ComicSerialization.serialize(comicDB.get(id), "ComicDB.txt");
     }
 
     void printComicDB(){
