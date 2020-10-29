@@ -38,6 +38,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Login: " + name;
+        return "User{" +
+                "name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

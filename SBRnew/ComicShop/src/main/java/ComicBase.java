@@ -1,14 +1,16 @@
+import java.io.File;
 import java.io.Serializable;
+import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 
 public class ComicBase implements Serializable {
 
-    private SortedMap<Integer, Comic> comicDB = new TreeMap<>();
+    static SortedMap<Integer, Comic> comicDB = new TreeMap<>();
 
 
-    public void comicFactory() {
+    static {
         comicDB.put(1, new Comic("Star Wars 1", "Lucas", 670, "scienceFiction",
                 1985, 15, 25, "Star Wars", 5));
         comicDB.put(2, new Comic("Star Wars 2", "Lucas", 570, "scienceFiction",
@@ -42,23 +44,250 @@ public class ComicBase implements Serializable {
         comicDB.put(16, new Comic("The Kents", "DC Comic", 150, "western",
                 2012, 25, 32, "", 2));
 
-        Serialization.comicSerialize(comicDB, "ComicDB.txt");
+        File file = new File("ComicDB.txt");
+        if (!file.isFile()) {
+            Serialization.serializationObject(comicDB, "ComicDB.txt");
+        }
     }
 
-    void addComic(int id, String nameComic, String nameAuthor, int numberOfPages, String genre, int yearOfPublishing,
-                  int costPrice, int priceForSale, String comicSeries, int numberOfComic) {
-        comicDB.put(id, new Comic(nameComic, nameAuthor, numberOfPages, genre, yearOfPublishing,
+    void addComic() {
+//        in.nextLine();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Введите название комикса: ");
+        String nameComic = in.nextLine();
+
+        System.out.println("Введите имя автора: ");
+        String nameAuthor = in.nextLine();
+
+        int numberOfPages;
+        do {
+            System.out.println("Введите количество страниц: ");
+            while (!in.hasNextInt()) {
+                System.out.println("Введите количество страниц: ");
+                in.next();
+            }
+            numberOfPages = in.nextInt();
+        } while (numberOfPages <= 0);
+
+        System.out.println("Введите жанр комикса: ");
+        String genre = in.next();
+
+        int yearOfPublishing;
+        do {
+            System.out.println("Введите год публикации комикса: ");
+            while (!in.hasNextInt()) {
+                System.out.println("Введите год публикации комикса: ");
+                in.next();
+            }
+            yearOfPublishing = in.nextInt();
+        } while (yearOfPublishing <= 0);
+
+        int costPrice;
+        do {
+            System.out.println("Введите цену закупки: ");
+            while (!in.hasNextInt()) {
+                System.out.println("Введите цену закупки: ");
+                in.next();
+            }
+            costPrice = in.nextInt();
+        } while (costPrice <= 0);
+
+        int priceForSale;
+        do {
+            System.out.println("Введите цену продажи: ");
+            while (!in.hasNextInt()) {
+                System.out.println("Введите цену продажи: ");
+                in.next();
+            }
+            priceForSale = in.nextInt();
+        } while (priceForSale <= 0);
+
+        in.nextLine();
+        System.out.println("Введите название серии комиксов");
+        String comicSeries = in.nextLine();
+
+        int numberOfComic;
+        do {
+            System.out.println("Введите количество экземпляров комикса: ");
+            while (!in.hasNextInt()) {
+                System.out.println("Введите количество экземпляров комикса: ");
+                in.next();
+            }
+            numberOfComic = in.nextInt();
+        } while (numberOfComic <= 0);
+        System.out.println("new id = " + (comicDB.lastKey() + 1));
+        System.out.println("Комикс " + nameComic + " добавлен");
+        comicDB.put(comicDB.lastKey() + 1, new Comic(nameComic, nameAuthor, numberOfPages, genre, yearOfPublishing,
                 costPrice, priceForSale, comicSeries, numberOfComic));
+        Serialization.serializationObject(comicDB, "ComicDB.txt");
+    }
+
+    void deleteComic() {
+        Scanner in = new Scanner(System.in);
+        printComicDB();
+        int id;
+        do {
+            System.out.print("Введите id для удаления: ");
+            while (!in.hasNextInt()) {
+                System.out.print("Введите id для удаления: ");
+                in.next();
+            }
+            id = in.nextInt();
+            if (!comicDB.containsKey(id)) {
+                System.out.println("Такого комикса нет");
+            } else {
+                comicDB.remove(id);
+            }
+        } while (id <= 0);
+        Serialization.serializationObject(comicDB, "ComicDB.txt");
+    }
+
+    void changeComic() {
+        Scanner in = new Scanner(System.in);
+        printComicDB();
+        int id;
+        do {
+            System.out.print("Введите id для изменения: ");
+            while (!in.hasNextInt()) {
+                System.out.print("Введите id для изменения: ");
+                in.next();
+            }
+            id = in.nextInt();
+            System.out.println("Выберите, что необходимо изменить ");
+            System.out.println("1. Название комикса");
+            System.out.println("2. Имя автора");
+            System.out.println("3. Количество страниц");
+            System.out.println("4. Жанр");
+            System.out.println("5. Год публикации");
+            System.out.println("6. Цена закупки");
+            System.out.println("7. Цена продажи");
+            System.out.println("8. Вселенная");
+            System.out.println("9. Количество комиксов в наличии");
+            System.out.println("0. Выйти из редактирования");
+            boolean isInt1 = in.hasNextInt();
+            if (isInt1) {
+                int choice1 = in.nextInt();
+                switch (choice1) {
+                    case 1: {
+                        in.nextLine();
+                        System.out.println("Введите новое название комикса: ");
+                        String nameComic = in.nextLine();
+                        comicDB.get(id).setNameComic(nameComic);
+                        System.out.println("Название изменено на : " + nameComic);
+                        break;
+                    }
+                    case 2: {
+                        in.nextLine();
+                        System.out.println("Введите имя автора: ");
+                        String nameAuthor = in.nextLine();
+                        comicDB.get(id).setNameAuthor(nameAuthor);
+                        System.out.println("Название изменено на : " + nameAuthor);
+                        break;
+                    }
+                    case 3: {
+
+                        int numberOfPages;
+                        do {
+                            System.out.println("Введите количество страниц: ");
+                            while (!in.hasNextInt()) {
+                                System.out.println("Введите количество страниц: ");
+                                in.next();
+                            }
+                            numberOfPages = in.nextInt();
+                            comicDB.get(id).setNumberOfPages(numberOfPages);
+                        } while (numberOfPages <= 0);
+                        System.out.println("Количество страниц изменено на : " + numberOfPages);
+                        break;
+                    }
+                    case 4: {
+                        System.out.println("Введите жанр комикса: ");
+                        String genre = in.next();
+                        comicDB.get(id).setGenre(genre);
+                        System.out.println("Жанр изменён на : " + genre);
+                        break;
+                    }
+                    case 5: {
+                        int yearOfPublishing;
+                        do {
+                            System.out.println("Введите год публикации комикса: ");
+                            while (!in.hasNextInt()) {
+                                System.out.println("Введите год публикации комикса: ");
+                                in.next();
+                            }
+                            yearOfPublishing = in.nextInt();
+                            comicDB.get(id).setYearOfPublishing(yearOfPublishing);
+                        } while (yearOfPublishing <= 0);
+                        System.out.println("Год публикации изменён на : " + yearOfPublishing);
+                        break;
+                    }
+                    case 6: {
+                        int costPrice;
+                        do {
+                            System.out.println("Введите цену закупки: ");
+                            while (!in.hasNextInt()) {
+                                System.out.println("Введите цену закупки: ");
+                                in.next();
+                            }
+                            costPrice = in.nextInt();
+                            comicDB.get(id).setCostPrice(costPrice);
+                        } while (costPrice <= 0);
+                        System.out.println("Цена закупки изменан на : " + costPrice);
+                        break;
+                    }
+                    case 7: {
+                        int priceForSale;
+                        do {
+                            System.out.println("Введите цену продажи: ");
+                            while (!in.hasNextInt()) {
+                                System.out.println("Введите цену продажи: ");
+                                in.next();
+                            }
+                            priceForSale = in.nextInt();
+                            comicDB.get(id).setPriceForSale(priceForSale);
+                        } while (priceForSale <= 0);
+                        System.out.println("Цена продажи изменана на : " + priceForSale);
+                        break;
+                    }
+                    case 8: {
+                        System.out.println("Введите название серии комиксов");
+                        String comicSeries = in.nextLine();
+                        comicDB.get(id).setComicSeries(comicSeries);
+                        System.out.println("Название серии изменено на : " + comicSeries);
+                        break;
+                    }
+                    case 9: {
+                        int numberOfComic;
+                        do {
+                            System.out.println("Введите количество экземпляров комикса: ");
+                            while (!in.hasNextInt()) {
+                                System.out.println("Введите количество экземпляров комикса: ");
+                                in.next();
+                            }
+                            numberOfComic = in.nextInt();
+                            comicDB.get(id).setNumberOfComic(numberOfComic);
+                        } while (numberOfComic <= 0);
+                        System.out.println("Количество экземпляров изменено на : " + numberOfComic);
+                        break;
+                    }
+                    case 0:
+//                        printAdminMenu(login, comicBase, discount);
+                        break;
+                    default : {
+                        System.out.println("Выберите один из доступных вариантов");
+                    }
+                }
+            }
+        } while (id <= 0);
     }
 
     void printComicDB() {
-        comicDB.forEach((k, v) -> System.out.println("id = " + k + " : " + v));
+        System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
+//        comicDB.forEach((k, v) -> System.out.println("id = " + k + " : " + v));
     }
 
 
     public SortedMap<Integer, Comic> getComicDB() {
         return comicDB;
     }
-
 
 }

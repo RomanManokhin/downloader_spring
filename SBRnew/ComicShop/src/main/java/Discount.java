@@ -25,6 +25,46 @@ public class Discount {
         System.out.println();
     }
 
+    void addAction(ComicBase comicBase){
+        Scanner in = new Scanner(System.in);
+        System.out.println("Выберие к какой акции необходимо добавить комикс\n1. Новый год\n 2. Мужской день\n3. Женский день");
+        int choice1;
+        do {
+            while (!in.hasNextInt()) {
+                System.out.println("Выберие к какой акции необходимо добавить комикс\n1. Новый год\n2. Мужской день\n3. Женский день");
+                in.next();
+            }
+            choice1 = in.nextInt();
+        } while (choice1 <= 0);
+
+        System.out.println("Какой комикс нужно добавить к акции, введите id");
+        int id;
+        do {
+            while (!in.hasNextInt()) {
+                System.out.println("Какой комикс нужно добавить к акции, введите id");
+                in.next();
+            }
+            id = in.nextInt();
+        } while (id <= 0);
+
+        switch (choice1) {
+            case 1: {
+                addNewYear(id, comicBase);
+                System.out.println("Комикс добавлен к акции");
+                break;
+            }
+            case 2: {
+                addManDay(id, comicBase);
+                System.out.println("Комикс добавлен к акции");
+                break;
+            }
+            case 3: {
+                addWomanDay(id, comicBase);
+                System.out.println("Комикс добавлен к акции");
+                break;
+            }
+        }
+    }
 
 
 }

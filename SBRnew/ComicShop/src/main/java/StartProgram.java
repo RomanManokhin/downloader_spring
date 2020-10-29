@@ -1,12 +1,29 @@
+import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class StartProgram {
 
     static void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
-        comicBase.comicFactory();
         Discount discount = new Discount();
+
+//        Thread goSave = new Thread(() -> {
+//                while (true){
+//                    Serialization.serializationObject(comicBase.getComicDB(), "ComicDB.txt");
+//                    Serialization.serializationObject(UsersDB.userDB, "loginData.txt");
+//                    UsersDB.userDB = (Map<String, User>) DeSerialization.deSerialization("loginData.txt");
+//                    ComicBase.comicDB = (SortedMap<Integer, Comic>) DeSerialization.deSerialization("ComicDB.txt");
+//                    try {
+//                        Thread.sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//        });
+//
+//        goSave.start();
 
         while (true) {
             System.out.println("Добро пожаловать!");
@@ -17,7 +34,7 @@ public class StartProgram {
                 continue;
             } else{
                 if(role.equals("admin")){
-                    AdminMenu.printAdminMenu(login, comicBase, discount);
+                    AdminMenuUi.printAdminMenu(login, comicBase, discount);
                 } else {
                     UserMenu.printUserMenu(login, comicBase);
                 }
