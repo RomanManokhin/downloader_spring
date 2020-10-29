@@ -2,39 +2,29 @@ import java.util.Scanner;
 
 public class StartProgram {
 
-    static void start(){
-        ComicBase comicBase = new ComicBase();
-        Discount discount = new Discount();
-        UsersDB usersDB = new UsersDB();
-        usersDB.userFactory();
+    static void init() {
         Scanner in = new Scanner(System.in);
-        System.out.print("Введите логин: ");
-        String login = in.next();
-        System.out.print("Введите пароль: ");
-        String password = in.next();
+        ComicBase comicBase = new ComicBase();
+        comicBase.comicFactory();
+        Discount discount = new Discount();
 
-//        System.out.println(usersDB.getUserDB().containsKey(login));
-
-//        try {
-//            boolean b = usersDB.getUserDB().values().;
-//            System.out.println(b);
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        }
-
-//        if(usersDB.getUserDB().containsKey(login)){
-//            System.out.println("Enter");
-//        } else {
-//            System.out.println("Note Enter");
-//        }
-
-
-//        if(login.equals(login)){
-//
-//            comicBase.comicFactory();
-//            AdminMenu.printAdminMenu(login, comicBase, discount);
-//        }
-
+        while (true) {
+            System.out.println("Добро пожаловать!");
+            System.out.print("Введите логин: ");
+            String login = in.next();
+            String role = UsersDB.start(login);
+            if(role.equals("wrong")){
+                continue;
+            } else{
+                if(role.equals("admin")){
+                    AdminMenu.printAdminMenu(login, comicBase, discount);
+                } else {
+                    UserMenu.printUserMenu(login, comicBase);
+                }
+            }
+            break;
+        }
     }
+
 
 }

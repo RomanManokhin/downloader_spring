@@ -324,13 +324,11 @@ public class AdminMenu {
                 }
                 case 9: {
                     System.out.println("Комиксы в базе");
-//                    comicBase.printComicDB();
                     System.out.println(DeSerialization.comicDeSerialize("ComicDB.txt"));
                     printAdminMenu(login, comicBase, discount);
                     break;
                 }
                 case 0: {
-                    StartProgram.start();
                     break;
                 }
             }
@@ -338,6 +336,5 @@ public class AdminMenu {
             System.out.println("Выберите один из предложенных вариантов\n");
             printAdminMenu(login, comicBase, discount);
         }
-
     }
 }

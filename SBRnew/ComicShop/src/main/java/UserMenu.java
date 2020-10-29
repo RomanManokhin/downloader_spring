@@ -61,8 +61,6 @@ public class UserMenu {
 
                 }
                 case 0: {
-                    StartProgram.start();
-                    break;
                 }
             }
         } else {
