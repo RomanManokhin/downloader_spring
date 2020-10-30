@@ -19,8 +19,11 @@ public class Discount {
     }
 
     void printDiscount(){
+        System.out.println("Акция нового года: ");
         newYear.forEach(System.out::println);
+        System.out.println("Акция Мужского дня: ");
         manDay.forEach(System.out::println);
+        System.out.println("Акция Женского дня: ");
         womanDay.forEach(System.out::println);
         System.out.println();
     }
@@ -38,13 +41,18 @@ public class Discount {
         } while (choice1 <= 0);
 
         System.out.println("Какой комикс нужно добавить к акции, введите id");
-        int id;
+        int id = 0;
         do {
-            while (!in.hasNextInt()) {
-                System.out.println("Какой комикс нужно добавить к акции, введите id");
-                in.next();
+            try {
+                id = in.nextInt();
+                if (!comicBase.getComicDB().containsKey(id)){
+                    System.out.println("Такого id нет\nВведите корректный id");
+                    continue;
+                }
+            } catch (Exception e){
+                System.out.println("Такого id нет\nВведите корректный id ");
+                continue;
             }
-            id = in.nextInt();
         } while (id <= 0);
 
         switch (choice1) {

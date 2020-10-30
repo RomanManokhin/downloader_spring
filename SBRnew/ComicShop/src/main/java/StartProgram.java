@@ -5,7 +5,7 @@ public class StartProgram {
     static void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
-                //(ComicBase) DeSerialization.deSerialization("loginData.txt");
+
         Discount discount = new Discount();
 
 //        Thread goSave = new Thread(() -> {
@@ -35,7 +35,7 @@ public class StartProgram {
                 if(role.equals("admin")){
                     AdminMenuUi.printAdminMenu(login, comicBase, discount);
                 } else {
-                    UserMenu.printUserMenu(login, comicBase);
+                    UserMenuUi.printUserMenu(login, comicBase);
                 }
             }
             break;

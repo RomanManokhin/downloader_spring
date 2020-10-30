@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class UserMenu {
+public class UserMenuUi {
 
     static void printUserMenu(String login, ComicBase comicBase) {
         Scanner in = new Scanner(System.in);
