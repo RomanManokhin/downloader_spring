@@ -1,12 +1,11 @@
-import java.util.Map;
 import java.util.Scanner;
-import java.util.SortedMap;
 
 public class StartProgram {
 
     static void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
+                //(ComicBase) DeSerialization.deSerialization("loginData.txt");
         Discount discount = new Discount();
 
 //        Thread goSave = new Thread(() -> {

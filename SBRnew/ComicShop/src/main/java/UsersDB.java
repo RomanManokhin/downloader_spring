@@ -92,14 +92,12 @@ public class UsersDB implements Serializable {
         Scanner in = new Scanner(System.in);
         userDB = (Map<String, User>) DeSerialization.deSerialization("loginData.txt");
         System.out.println(DeSerialization.deSerialization("loginData.txt"));
-
         System.out.println("Какому пользователю необходимо изменить права?\nИли 0 для отмены");
         String changedName = in.next();
         if (changedName.equals("0")) {
             return "Отмена";
         } else {
             if (userDB.containsKey(changedName)) {
-//           userDB.get(changedName).getRole().equals("user") ? userDB.get(changedName).setRole("admin") : userDB.get(changedName).setRole("user");
                 if (userDB.get(changedName).getRole().equals("user")) {
                     userDB.get(changedName).setRole("admin");
                     Serialization.serializationObject(userDB, "loginData.txt");

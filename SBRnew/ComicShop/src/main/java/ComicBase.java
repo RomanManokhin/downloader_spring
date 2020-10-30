@@ -4,11 +4,9 @@ import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-
 public class ComicBase implements Serializable {
 
     static SortedMap<Integer, Comic> comicDB = new TreeMap<>();
-
 
     static {
         comicDB.put(1, new Comic("Star Wars 1", "Lucas", 670, "scienceFiction",
@@ -47,6 +45,8 @@ public class ComicBase implements Serializable {
         File file = new File("ComicDB.txt");
         if (!file.isFile()) {
             Serialization.serializationObject(comicDB, "ComicDB.txt");
+        } else {
+           comicDB = (SortedMap<Integer, Comic>) DeSerialization.deSerialization("ComicDB.txt");
         }
     }
 
@@ -145,14 +145,19 @@ public class ComicBase implements Serializable {
     void changeComic() {
         Scanner in = new Scanner(System.in);
         printComicDB();
-        int id;
+        int id = 0;
         do {
             System.out.print("Введите id для изменения: ");
-            while (!in.hasNextInt()) {
-                System.out.print("Введите id для изменения: ");
-                in.next();
+            try {
+                id = in.nextInt();
+                if (!comicDB.containsKey(id)){
+                    System.out.println("Такого id нет\nВведите корректный id");
+                    continue;
+                }
+            } catch (Exception e){
+                System.out.println("Такого id нет\nВведите корректный id ");
+                continue;
             }
-            id = in.nextInt();
             System.out.println("Выберите, что необходимо изменить ");
             System.out.println("1. Название комикса");
             System.out.println("2. Имя автора");
@@ -185,7 +190,6 @@ public class ComicBase implements Serializable {
                         break;
                     }
                     case 3: {
-
                         int numberOfPages;
                         do {
                             System.out.println("Введите количество страниц: ");
@@ -270,19 +274,18 @@ public class ComicBase implements Serializable {
                         break;
                     }
                     case 0:
-//                        printAdminMenu(login, comicBase, discount);
                         break;
                     default : {
-                        System.out.println("Выберите один из доступных вариантов");
+                        System.out.println("Такого пункта меню нет");
+                        changeComic();
                     }
                 }
             }
-        } while (id <= 0);
+        } while (id < 0);
     }
 
     void printComicDB() {
         System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
-//        comicDB.forEach((k, v) -> System.out.println("id = " + k + " : " + v));
     }
 
 
