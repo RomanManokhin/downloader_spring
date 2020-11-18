@@ -282,10 +282,56 @@ public class ComicBase implements Serializable {
                 }
             }
         } while (id < 0);
+        Serialization.serializationObject(comicDB, "ComicDB.txt");
     }
 
+
+
     void printComicDB() {
+        System.out.println("Комиксы в базе");
         System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
+    }
+
+    void writeOffComic(){
+        Scanner in = new Scanner(System.in);
+        printComicDB();
+        int id;
+        do {
+            System.out.println("Какой комикс списываем, введите id ");
+            while (!in.hasNextInt()) {
+                System.out.print("Введите id для списания: ");
+                in.next();
+            }
+            id = in.nextInt();
+
+            if (comicDB.containsKey(id) && comicDB.get(id).getNumberOfComic() > 0) {
+                comicDB.get(id).setNumberOfComic(comicDB.get(id).getNumberOfComic() - 1);
+            } else {
+                System.out.println("Данный комикс закончился");
+            }
+        } while (id <= 0);
+        Serialization.serializationObject(comicDB, "ComicDB.txt");
+    }
+
+    void sellComic(){
+        Scanner in = new Scanner(System.in);
+        printComicDB();
+        int id;
+        do {
+            System.out.println("Какой комикс продаём, введите id ");
+            while (!in.hasNextInt()) {
+                System.out.print("Введите id для продажи: ");
+                in.next();
+            }
+            id = in.nextInt();
+
+            if (comicDB.containsKey(id) && comicDB.get(id).getNumberOfComic() > 0) {
+                comicDB.get(id).setNumberOfComic(comicDB.get(id).getNumberOfComic() - 1);
+            } else {
+                System.out.println("Данный комикс закончился");
+            }
+        } while (id <= 0);
+        Serialization.serializationObject(comicDB, "ComicDB.txt");
     }
 
 

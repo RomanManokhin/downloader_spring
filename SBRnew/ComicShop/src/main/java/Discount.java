@@ -19,6 +19,7 @@ public class Discount {
     }
 
     void printDiscount(){
+        System.out.println("Доступные акции: ");
         System.out.println("Акция нового года: ");
         newYear.forEach(System.out::println);
         System.out.println("Акция Мужского дня: ");

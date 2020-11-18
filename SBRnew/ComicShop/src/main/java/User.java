@@ -6,10 +6,15 @@ public class User implements Serializable {
     private String password;
     private String role;
 
+
     public User(String name, String password, String role) {
         this.name = name;
         this.password = password;
         this.role = role;
+    }
+
+    public void reserveComic(ComicBase comicBase, UsersDB usersDB){
+
     }
 
     public String getName() {
@@ -35,6 +40,8 @@ public class User implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
+
+
 
     @Override
     public String toString() {

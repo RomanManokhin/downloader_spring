@@ -35,7 +35,7 @@ public class StartProgram {
                 if(role.equals("admin")){
                     AdminMenuUi.printAdminMenu(login, comicBase, discount);
                 } else {
-                    UserMenuUi.printUserMenu(login, comicBase);
+                    UserMenuUi.printUserMenu(login, comicBase, discount);
                 }
             }
             break;

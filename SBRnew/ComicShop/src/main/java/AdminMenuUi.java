@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class AdminMenuUi {
+public class AdminMenuUi{
 
     static void printAdminMenu(String login, ComicBase comicBase, Discount discount) {
         Scanner in = new Scanner(System.in);
@@ -18,7 +18,8 @@ public class AdminMenuUi {
         System.out.println("9. Показать комиксы в наличии");
         System.out.println("10. Изменить права у пользователя");
         System.out.println("11. Удалить пользователя");
-        System.out.println("0. Выход");
+        System.out.println("12. Доп. элементы меню");
+        System.out.println("0. Закончить работу с приложением");
 
         boolean isInt = in.hasNextInt();
 
@@ -28,40 +29,22 @@ public class AdminMenuUi {
                 case 1: {
                     comicBase.addComic();
                     printAdminMenu(login, comicBase, discount);
-                    break;
                 }
                 case 2: {
                     comicBase.deleteComic();
                     printAdminMenu(login, comicBase, discount);
-                    break;
                 }
                 case 3: {
                     comicBase.changeComic();
                     printAdminMenu(login, comicBase, discount);
-                    break;
                 }
                 case 4: {
                     comicBase.printComicDB();
-                    System.out.println("Какой комикс продаём, введите id ");
-                    int id = in.nextInt();
-                    if (comicBase.getComicDB().get(id).getNumberOfComic() > 0) {
-                        comicBase.getComicDB().get(id).setNumberOfComic(comicBase.getComicDB().get(id).getNumberOfComic() - 1);
-                    } else {
-                        System.out.println("Данный комикс закончился");
-                    }
-                    Serialization.serializationObject(comicBase.getComicDB(), "ComicDB.txt");
+                    comicBase.sellComic();
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 5: {
-                    comicBase.printComicDB();
-                    System.out.println("Какой комикс списываем, введите id ");
-                    int id = in.nextInt();
-                    if (comicBase.getComicDB().get(id).getNumberOfComic() > 0) {
-                        comicBase.getComicDB().get(id).setNumberOfComic(comicBase.getComicDB().get(id).getNumberOfComic() - 1);
-                    } else {
-                        System.out.println("Данный комикс закончился");
-                    }
-                    Serialization.serializationObject(comicBase.getComicDB(), "ComicDB.txt");
+                    comicBase.writeOffComic();
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 6: {
@@ -70,29 +53,31 @@ public class AdminMenuUi {
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 7: {
-                    System.out.println("Доступные акции: ");
                     discount.printDiscount();
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 8: {
-
+                    System.out.println("В разработке");
+                    printAdminMenu(login, comicBase, discount);
                 }
                 case 9: {
-                    System.out.println("Комиксы в базе");
                     System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
                     printAdminMenu(login, comicBase, discount);
-                    break;
                 }
-                case 10 : {
+                case 10: {
                     System.out.println(UsersDB.changeRole(login));
                     printAdminMenu(login, comicBase, discount);
                 }
-                case 11 : {
+                case 11: {
                     System.out.println(UsersDB.deleteUser());
                     printAdminMenu(login, comicBase, discount);
                 }
+                case 12: {
+                    UserMenuUi.printUserMenu(login, comicBase,discount);
+                    printAdminMenu(login, comicBase, discount);
+                }
                 case 0: {
-                    break;
+                    StartProgram.init();
                 }
                 default: {
                     System.out.println("Выберите один из доступных вариантов");

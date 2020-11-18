@@ -138,7 +138,6 @@ public class UsersDB implements Serializable {
                 Serialization.serializationObject(userDB, "loginData.txt");
                 userDB = (Map<String, User>) DeSerialization.deSerialization("loginData.txt");
             } else {
-//            System.out.println("Неверный логин");
                 return "Нет такого пользователя";
             }
         }

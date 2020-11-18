@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class UserMenuUi {
 
-    static void printUserMenu(String login, ComicBase comicBase) {
+    static void printUserMenu(String login, ComicBase comicBase, Discount discount) {
         Scanner in = new Scanner(System.in);
         System.out.println("Добро пожаловать: " + login);
         System.out.println("Что вы хотите сделать? ");
@@ -24,21 +24,12 @@ public class UserMenuUi {
             int choice = in.nextInt();
             switch (choice) {
                 case 1: {
-                    System.out.println("Комиксы в базе");
                     comicBase.printComicDB();
-                    printUserMenu(login, comicBase);
-                    break;
+                    printUserMenu(login, comicBase, discount);
                 }
                 case 2: {
-                    comicBase.printComicDB();
-                    System.out.println("Какой комикс продаём, введите id ");
-                    int id = in.nextInt();
-                    if(comicBase.getComicDB().get(id).getNumberOfComic() > 0) {
-                        comicBase.getComicDB().get(id).setNumberOfComic(comicBase.getComicDB().get(id).getNumberOfComic() - 1);
-                    } else {
-                        System.out.println("Данный комикс закончился");
-                        printUserMenu(login, comicBase);
-                    }
+                    comicBase.sellComic();
+                    printUserMenu(login, comicBase, discount);
                 }
                 case 3: {
 
@@ -62,11 +53,12 @@ public class UserMenuUi {
 
                 }
                 case 0: {
+                    StartProgram.init();
                 }
             }
         } else {
             System.out.println("Выберите один из предложенных вариантов\n");
-            printUserMenu(login, comicBase);
+            printUserMenu(login, comicBase, discount);
         }
 
 
