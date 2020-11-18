@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class UsersDB implements Serializable {
-
     static Map<String, User> userDB = new HashMap<>();
 
     static {

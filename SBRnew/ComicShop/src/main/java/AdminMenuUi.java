@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class AdminMenuUi{
-
     static void printAdminMenu(String login, ComicBase comicBase, Discount discount) {
         Scanner in = new Scanner(System.in);
 
