@@ -292,6 +292,23 @@ public class ComicBase implements Serializable {
         System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
     }
 
+    void printComicDBForUser(){
+        System.out.println("Комиксы в базе");
+        DeSerialization.deSerialization("ComicDB.txt");
+        for(Integer key : comicDB.keySet()){
+            System.out.println("id " + key + " {" +
+                    "Название комикса -'" + comicDB.get(key).getNameComic() + '\'' +
+                    ", имя автора -'" + comicDB.get(key).getNameAuthor() + '\'' +
+                    ", страницы - " + comicDB.get(key).getNumberOfPages() +
+                    ", жанр -'" + comicDB.get(key).getGenre() + '\'' +
+                    ", год выпуска - " + comicDB.get(key).getYearOfPublishing() +
+                    ", цена продажи - " + comicDB.get(key).getPriceForSale() +
+                    ", вселенная - " + comicDB.get(key).getComicSeries() + '\'' +
+                    ", количество экземпляров - " + comicDB.get(key).getNumberOfComic() +
+                    '}');
+        }
+    }
+
     void writeOffComic(){
         Scanner in = new Scanner(System.in);
         printComicDB();
@@ -318,9 +335,9 @@ public class ComicBase implements Serializable {
         printComicDB();
         int id;
         do {
-            System.out.println("Какой комикс продаём, введите id ");
+            System.out.println("Введите id комикса ");
             while (!in.hasNextInt()) {
-                System.out.print("Введите id для продажи: ");
+                System.out.print("Введите id комикса  ");
                 in.next();
             }
             id = in.nextInt();

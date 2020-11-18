@@ -2,36 +2,63 @@ import java.util.*;
 
 public class Discount {
 
-    List<Comic> newYear = new ArrayList<>();
-    List<Comic> manDay = new ArrayList<>();
-    List<Comic> womanDay = new ArrayList<>();
-
-    void addNewYear(int id, ComicBase comicBase){
-       newYear.add(comicBase.getComicDB().get(id));
-    }
-
-    void addManDay(int id, ComicBase comicBase){
-        manDay.add(comicBase.getComicDB().get(id));
-    }
-
-    void addWomanDay(int id, ComicBase comicBase){
-        womanDay.add(comicBase.getComicDB().get(id));
-    }
-
-    void printDiscount(){
+    public void printDiscount() {
         System.out.println("Доступные акции: ");
-        System.out.println("Акция нового года: ");
-        newYear.forEach(System.out::println);
-        System.out.println("Акция Мужского дня: ");
-        manDay.forEach(System.out::println);
-        System.out.println("Акция Женского дня: ");
-        womanDay.forEach(System.out::println);
-        System.out.println();
+        DiscountNewYear.printNewYear();
+        DiscountManDay.printManDay();
+        DiscountWomanDay.printWomanDay();
     }
 
-    void addAction(ComicBase comicBase){
+    public void deleteAction() {
         Scanner in = new Scanner(System.in);
-        System.out.println("Выберие к какой акции необходимо добавить комикс\n1. Новый год\n 2. Мужской день\n3. Женский день");
+        System.out.println("Выберие из какой акции необходимо удалить комикс\n1. Новый год\n2. Мужской день\n3. Женский день");
+        int choice1;
+        do {
+            while (!in.hasNextInt()) {
+                System.out.println("Выберие из какой акции необходимо удалить комикс\n1. Новый год\n2. Мужской день\n3. Женский день");
+                in.next();
+            }
+            choice1 = in.nextInt();
+        } while (choice1 <= -1);
+
+
+
+        switch (choice1) {
+            case 1: {
+                if (DiscountNewYear.deleteNewYear()) {
+                    System.out.println("Комикс удален из акции");
+                } else {
+                    System.out.println("Нет такого комикса в этой акции");
+                }
+                break;
+            }
+            case 2: {
+                if (DiscountManDay.deleteManDay()) {
+                    System.out.println("Комикс удален из акции");
+                } else {
+                    System.out.println("Нет такого комикса в этой акции");
+                }
+                break;
+            }
+            case 3: {
+                if (DiscountWomanDay.deleteWomanDay()) {
+                    System.out.println("Комикс удален из акции");
+                } else {
+                    System.out.println("Нет такого комикса в этой акции");
+                }
+                break;
+            }
+            default: {
+                System.out.println("Такой акции нет. ");
+                break;
+            }
+        }
+    }
+
+
+    public void addAction(ComicBase comicBase) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Выберие к какой акции необходимо добавить комикс\n1. Новый год\n2. Мужской день\n3. Женский день");
         int choice1;
         do {
             while (!in.hasNextInt()) {
@@ -46,11 +73,11 @@ public class Discount {
         do {
             try {
                 id = in.nextInt();
-                if (!comicBase.getComicDB().containsKey(id)){
+                if (!comicBase.getComicDB().containsKey(id)) {
                     System.out.println("Такого id нет\nВведите корректный id");
                     continue;
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Такого id нет\nВведите корректный id ");
                 continue;
             }
@@ -58,22 +85,24 @@ public class Discount {
 
         switch (choice1) {
             case 1: {
-                addNewYear(id, comicBase);
+                DiscountNewYear.addNewYear(id, comicBase);
                 System.out.println("Комикс добавлен к акции");
                 break;
             }
             case 2: {
-                addManDay(id, comicBase);
+                DiscountManDay.addManDay(id, comicBase);
                 System.out.println("Комикс добавлен к акции");
                 break;
             }
             case 3: {
-                addWomanDay(id, comicBase);
+                DiscountWomanDay.addWomanDay(id, comicBase);
                 System.out.println("Комикс добавлен к акции");
                 break;
             }
+            default: {
+                System.out.println("Такой акции нет. ");
+                addAction(comicBase);
+            }
         }
     }
-
-
 }

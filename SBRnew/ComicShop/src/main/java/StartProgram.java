@@ -1,28 +1,14 @@
 import java.util.Scanner;
 
 public class StartProgram {
+    public static void main(String[] args) {
+        StartProgram.init();
+    }
 
     static void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
-
         Discount discount = new Discount();
-
-//        Thread goSave = new Thread(() -> {
-//                while (true){
-//                    Serialization.serializationObject(comicBase.getComicDB(), "ComicDB.txt");
-//                    Serialization.serializationObject(UsersDB.userDB, "loginData.txt");
-//                    UsersDB.userDB = (Map<String, User>) DeSerialization.deSerialization("loginData.txt");
-//                    ComicBase.comicDB = (SortedMap<Integer, Comic>) DeSerialization.deSerialization("ComicDB.txt");
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//        });
-//
-//        goSave.start();
 
         while (true) {
             System.out.println("Добро пожаловать!");

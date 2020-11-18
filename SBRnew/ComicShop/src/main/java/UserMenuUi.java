@@ -23,7 +23,7 @@ public class UserMenuUi {
             int choice = in.nextInt();
             switch (choice) {
                 case 1: {
-                    comicBase.printComicDB();
+                    comicBase.printComicDBForUser();
                     printUserMenu(login, comicBase, discount);
                 }
                 case 2: {

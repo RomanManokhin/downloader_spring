@@ -108,16 +108,16 @@ public class Comic implements Serializable {
     @Override
     public String toString() {
         return "Comic{" +
-                "Название комикса ='" + nameComic + '\'' +
-                ", имя автора ='" + nameAuthor + '\'' +
-                ", количество страниц =" + numberOfPages +
-                ", жанр ='" + genre + '\'' +
-                ", год выпуска =" + yearOfPublishing +
-                ", себестоимость =" + costPrice +
-                ", цена продажи =" + priceForSale +
-                ", вселенная ='" + comicSeries + '\'' +
-                ", количество штук в наличии =" + numberOfComic +
-                '}';
+                "Название комикса -'" + nameComic + '\'' +
+                ", имя автора -'" + nameAuthor + '\'' +
+                ", страницы -" + numberOfPages +
+                ", жанр -'" + genre + '\'' +
+                ", год выпуска -" + yearOfPublishing +
+                ", себестоимость -" + costPrice +
+                ", цена продажи -" + priceForSale +
+                ", вселенная -'" + comicSeries + '\'' +
+                ", количество экземпрляров -'" + numberOfComic +
+                '}' + "\n";
     }
 
 

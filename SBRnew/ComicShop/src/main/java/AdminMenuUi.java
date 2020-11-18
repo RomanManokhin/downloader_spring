@@ -12,12 +12,13 @@ public class AdminMenuUi{
         System.out.println("4. Продать комикс");
         System.out.println("5. Списать комикс");
         System.out.println("6. Добавить комикс к акции");
-        System.out.println("7. Показать акционные комиксы");
-        System.out.println("8. Отложить комикс определенному покупателю");
-        System.out.println("9. Показать комиксы в наличии");
-        System.out.println("10. Изменить права у пользователя");
-        System.out.println("11. Удалить пользователя");
-        System.out.println("12. Доп. элементы меню");
+        System.out.println("7. Удалить коммикс из акции");
+        System.out.println("8. Показать акционные комиксы");
+        System.out.println("9. Отложить комикс определенному покупателю");
+        System.out.println("10. Показать комиксы в наличии");
+        System.out.println("11. Изменить права у пользователя");
+        System.out.println("12. Удалить пользователя");
+        System.out.println("13. Доп. элементы меню");
         System.out.println("0. Закончить работу с приложением");
 
         boolean isInt = in.hasNextInt();
@@ -53,25 +54,30 @@ public class AdminMenuUi{
                 }
                 case 7: {
                     discount.printDiscount();
+                    discount.deleteAction();
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 8: {
-                    System.out.println("В разработке");
+                    discount.printDiscount();
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 9: {
-                    System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
+                    System.out.println("В разработке");
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 10: {
-                    System.out.println(UsersDB.changeRole(login));
+                    System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 11: {
-                    System.out.println(UsersDB.deleteUser());
+                    System.out.println(UsersDB.changeRole(login));
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 12: {
+                    System.out.println(UsersDB.deleteUser());
+                    printAdminMenu(login, comicBase, discount);
+                }
+                case 13: {
                     UserMenuUi.printUserMenu(login, comicBase,discount);
                     printAdminMenu(login, comicBase, discount);
                 }
