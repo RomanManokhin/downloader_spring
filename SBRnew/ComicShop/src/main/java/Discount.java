@@ -2,11 +2,21 @@ import java.util.*;
 
 public class Discount {
 
+    DiscountNewYear discountNewYear = new DiscountNewYear();
+    DiscountManDay discountManDay = new DiscountManDay();
+    DiscountWomanDay discountWomanDay = new DiscountWomanDay();
+
+    public Discount() {
+        discountNewYear.InitDiscountNewYear();
+        discountManDay.InitDiscountManDay();
+        discountWomanDay.InitDiscountWomanDay();
+    }
+
     public void printDiscount() {
         System.out.println("Доступные акции: ");
-        DiscountNewYear.printNewYear();
-        DiscountManDay.printManDay();
-        DiscountWomanDay.printWomanDay();
+        discountNewYear.printNewYear();
+        discountManDay.printManDay();
+        discountWomanDay.printWomanDay();
     }
 
     public void deleteAction(ComicBase comicBase) {
@@ -23,7 +33,7 @@ public class Discount {
 
         switch (choice1) {
             case 1: {
-                if (DiscountNewYear.deleteNewYear(comicBase)) {
+                if (discountNewYear.deleteNewYear(comicBase)) {
                     System.out.println("Комикс удален из акции");
                 } else {
                     System.out.println("Нет такого комикса в этой акции");
@@ -31,7 +41,7 @@ public class Discount {
                 break;
             }
             case 2: {
-                if (DiscountManDay.deleteManDay(comicBase)) {
+                if (discountManDay.deleteManDay(comicBase)) {
                     System.out.println("Комикс удален из акции");
                 } else {
                     System.out.println("Нет такого комикса в этой акции");
@@ -39,7 +49,7 @@ public class Discount {
                 break;
             }
             case 3: {
-                if (DiscountWomanDay.deleteWomanDay(comicBase)) {
+                if (discountWomanDay.deleteWomanDay(comicBase)) {
                     System.out.println("Комикс удален из акции");
                 } else {
                     System.out.println("Нет такого комикса в этой акции");
@@ -83,17 +93,17 @@ public class Discount {
 
         switch (choice1) {
             case 1: {
-                DiscountNewYear.addNewYear(id, comicBase);
+                discountNewYear.addNewYear(id, comicBase);
                 System.out.println("Комикс добавлен к акции");
                 break;
             }
             case 2: {
-                DiscountManDay.addManDay(id, comicBase);
+                discountManDay.addManDay(id, comicBase);
                 System.out.println("Комикс добавлен к акции");
                 break;
             }
             case 3: {
-                DiscountWomanDay.addWomanDay(id, comicBase);
+                discountWomanDay.addWomanDay(id, comicBase);
                 System.out.println("Комикс добавлен к акции");
                 break;
             }

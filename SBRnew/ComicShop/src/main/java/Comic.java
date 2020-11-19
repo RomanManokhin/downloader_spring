@@ -12,12 +12,6 @@ public class Comic implements Serializable {
     private double priceForSale; //цена продажи
     private String comicSeries; //продолжение?
     private int numberOfComic; //количество комиксов в наличии
-    private boolean bestOfSale; //популярный?
-    private boolean bestAuthor; //популярность автора?
-    private boolean bestOfGenreOnDay; //популярность жанра день
-    private boolean bestOfGenreOnMonth; //популярность жанра месяц
-    private boolean bestOfGenreOnYear; //популярность жанра год
-
 
     public Comic(String nameComic, String nameAuthor, int numberOfPages, String genre, int yearOfPublishing,
                  int costPrice, double priceForSale, String comicSeries, int numberOfComic) {

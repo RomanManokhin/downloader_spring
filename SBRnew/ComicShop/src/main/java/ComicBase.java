@@ -6,9 +6,14 @@ import java.util.TreeMap;
 
 public class ComicBase implements Serializable {
 
-    static SortedMap<Integer, Comic> comicDB = new TreeMap<>();
+    private SortedMap<Integer, Comic> comicDB;
+    Serialization serialization = new Serialization();
+    DeSerialization deSerialization = new DeSerialization();
+    public ComicBase(){
+        comicDB = new TreeMap<>();
+    }
 
-    static {
+    public void InitDb() {
         comicDB.put(1, new Comic("Star Wars 1", "Lucas", 670, "scienceFiction",
                 1985, 15, 25, "Star Wars", 5));
         comicDB.put(2, new Comic("Star Wars 2", "Lucas", 570, "scienceFiction",
@@ -41,12 +46,16 @@ public class ComicBase implements Serializable {
                 2006, 22, 34, "", 2));
         comicDB.put(16, new Comic("The Kents", "DC Comic", 150, "western",
                 2012, 25, 32, "", 2));
+    }
 
-        File file = new File("ComicDB.txt");
-        if (!file.isFile()) {
-            Serialization.serializationObject(comicDB, "ComicDB.txt");
+    public void loadDb(String dbName) {
+        File file = new File(dbName);
+        if (!file.exists()) {
+            comicDB = new TreeMap<>();
+            InitDb();
+            serialization.serialization(comicDB, dbName);
         } else {
-           comicDB = (SortedMap<Integer, Comic>) DeSerialization.deSerialization("ComicDB.txt");
+            comicDB = (SortedMap<Integer, Comic>) deSerialization.deSerialization("ComicDB.txt");
         }
     }
 
@@ -119,7 +128,7 @@ public class ComicBase implements Serializable {
         System.out.println("Комикс " + nameComic + " добавлен");
         comicDB.put(comicDB.lastKey() + 1, new Comic(nameComic, nameAuthor, numberOfPages, genre, yearOfPublishing,
                 costPrice, priceForSale, comicSeries, numberOfComic));
-        Serialization.serializationObject(comicDB, "ComicDB.txt");
+        serialization.serialization(comicDB, "ComicDB.txt");
     }
 
     void deleteComic() {
@@ -139,7 +148,7 @@ public class ComicBase implements Serializable {
                 comicDB.remove(id);
             }
         } while (id <= 0);
-        Serialization.serializationObject(comicDB, "ComicDB.txt");
+        serialization.serialization(comicDB, "ComicDB.txt");
     }
 
     void changeComic() {
@@ -282,19 +291,19 @@ public class ComicBase implements Serializable {
                 }
             }
         } while (id < 0);
-        Serialization.serializationObject(comicDB, "ComicDB.txt");
+        serialization.serialization(comicDB, "ComicDB.txt");
     }
 
 
 
     void printComicDB() {
         System.out.println("Комиксы в базе");
-        System.out.println(DeSerialization.deSerialization("ComicDB.txt"));
+        System.out.println(deSerialization.deSerialization("ComicDB.txt"));
     }
 
     void printComicDBForUser(){
         System.out.println("Комиксы в базе");
-        DeSerialization.deSerialization("ComicDB.txt");
+        deSerialization.deSerialization("ComicDB.txt");
         for(Integer key : comicDB.keySet()){
             System.out.println("id " + key + " {" +
                     "Название комикса -'" + comicDB.get(key).getNameComic() + '\'' +
@@ -327,7 +336,7 @@ public class ComicBase implements Serializable {
                 System.out.println("Данный комикс закончился");
             }
         } while (id <= 0);
-        Serialization.serializationObject(comicDB, "ComicDB.txt");
+        serialization.serialization(comicDB, "ComicDB.txt");
     }
 
     void sellComic(){
@@ -348,7 +357,7 @@ public class ComicBase implements Serializable {
                 System.out.println("Данный комикс закончился");
             }
         } while (id <= 0);
-        Serialization.serializationObject(comicDB, "ComicDB.txt");
+        serialization.serialization(comicDB, "ComicDB.txt");
     }
 
 

@@ -1,7 +1,7 @@
 import java.io.*;
 
-public class DeSerialization {
-    public static Object deSerialization(String fileName) {
+public class DeSerialization{
+    public Object deSerialization(String fileName) {
         Object obj = null;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             obj = ois.readObject();

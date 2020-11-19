@@ -2,7 +2,7 @@ import java.io.*;
 
 public class Serialization {
 
-    public static void serializationObject(Object obj, String fileName) {
+    public void serialization(Object obj, String fileName) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(obj);
         } catch (FileNotFoundException ex) {
