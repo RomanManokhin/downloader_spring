@@ -9,7 +9,7 @@ public class Comic implements Serializable {
     private String genre; //жанр
     private int yearOfPublishing; //год публикации
     private int costPrice; //базовая цена
-    private int priceForSale; //цена продажи
+    private double priceForSale; //цена продажи
     private String comicSeries; //продолжение?
     private int numberOfComic; //количество комиксов в наличии
     private boolean bestOfSale; //популярный?
@@ -20,7 +20,7 @@ public class Comic implements Serializable {
 
 
     public Comic(String nameComic, String nameAuthor, int numberOfPages, String genre, int yearOfPublishing,
-                 int costPrice, int priceForSale, String comicSeries, int numberOfComic) {
+                 int costPrice, double priceForSale, String comicSeries, int numberOfComic) {
         this.nameComic = nameComic;
         this.nameAuthor = nameAuthor;
         this.numberOfPages = numberOfPages;
@@ -85,7 +85,7 @@ public class Comic implements Serializable {
         return priceForSale;
     }
 
-    public void setPriceForSale(int priceForSale) {
+    public void setPriceForSale(double priceForSale) {
         this.priceForSale = priceForSale;
     }
 

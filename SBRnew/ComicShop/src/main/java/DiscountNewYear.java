@@ -20,13 +20,14 @@ public class DiscountNewYear {
     }
 
     public static void addNewYear(int id, ComicBase comicBase) {
-        newYear.put(id, comicBase.getComicDB().get(id));
         comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
+        newYear.put(id, comicBase.getComicDB().get(id));
+        Serialization.serializationObject(comicBase.getComicDB(), "ComicDB.txt");
         Serialization.serializationObject(newYear, "DiscountNewYear.txt");
     }
 
 
-    public static boolean deleteNewYear() {
+    public static boolean deleteNewYear(ComicBase comicBase) {
         Scanner in = new Scanner(System.in);
         int id;
         do {
@@ -36,9 +37,11 @@ public class DiscountNewYear {
                 in.next();
             }
             id = in.nextInt();
-            if(newYear.containsKey(id)){
+            if (newYear.containsKey(id)) {
+//                comicBase.getComicDB().get(id).setPriceForSale((int) ((comicBase.getComicDB().get(id).getPriceForSale() + 100 * 0.8) + comicBase.getComicDB().get(id).getPriceForSale()));
                 newYear.remove(id);
                 Serialization.serializationObject(newYear, "DiscountNewYear.txt");
+                Serialization.serializationObject(comicBase.getComicDB(), "ComicDB.txt");
                 return true;
             } else {
                 return false;
@@ -46,14 +49,9 @@ public class DiscountNewYear {
         } while (id <= -1);
     }
 
-    public static void printNewYear(){
-        System.out.println(DeSerialization.deSerialization("DiscountNewYear.txt"));
+    public static void printNewYear() {
+        System.out.println("Новогодние акции:\n" + DeSerialization.deSerialization("DiscountNewYear.txt"));
     }
-
-
-
-
-
 
 
 }

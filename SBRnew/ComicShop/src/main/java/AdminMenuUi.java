@@ -54,7 +54,7 @@ public class AdminMenuUi{
                 }
                 case 7: {
                     discount.printDiscount();
-                    discount.deleteAction();
+                    discount.deleteAction(comicBase);
                     printAdminMenu(login, comicBase, discount);
                 }
                 case 8: {

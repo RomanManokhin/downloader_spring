@@ -239,14 +239,14 @@ public class ComicBase implements Serializable {
                         break;
                     }
                     case 7: {
-                        int priceForSale;
+                        double priceForSale;
                         do {
                             System.out.println("Введите цену продажи: ");
-                            while (!in.hasNextInt()) {
+                            while (!in.hasNextDouble()) {
                                 System.out.println("Введите цену продажи: ");
                                 in.next();
                             }
-                            priceForSale = in.nextInt();
+                            priceForSale = in.nextDouble();
                             comicDB.get(id).setPriceForSale(priceForSale);
                         } while (priceForSale <= 0);
                         System.out.println("Цена продажи изменана на : " + priceForSale);

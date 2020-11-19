@@ -9,7 +9,7 @@ public class Discount {
         DiscountWomanDay.printWomanDay();
     }
 
-    public void deleteAction() {
+    public void deleteAction(ComicBase comicBase) {
         Scanner in = new Scanner(System.in);
         System.out.println("Выберие из какой акции необходимо удалить комикс\n1. Новый год\n2. Мужской день\n3. Женский день");
         int choice1;
@@ -21,11 +21,9 @@ public class Discount {
             choice1 = in.nextInt();
         } while (choice1 <= -1);
 
-
-
         switch (choice1) {
             case 1: {
-                if (DiscountNewYear.deleteNewYear()) {
+                if (DiscountNewYear.deleteNewYear(comicBase)) {
                     System.out.println("Комикс удален из акции");
                 } else {
                     System.out.println("Нет такого комикса в этой акции");
@@ -33,7 +31,7 @@ public class Discount {
                 break;
             }
             case 2: {
-                if (DiscountManDay.deleteManDay()) {
+                if (DiscountManDay.deleteManDay(comicBase)) {
                     System.out.println("Комикс удален из акции");
                 } else {
                     System.out.println("Нет такого комикса в этой акции");
@@ -41,7 +39,7 @@ public class Discount {
                 break;
             }
             case 3: {
-                if (DiscountWomanDay.deleteWomanDay()) {
+                if (DiscountWomanDay.deleteWomanDay(comicBase)) {
                     System.out.println("Комикс удален из акции");
                 } else {
                     System.out.println("Нет такого комикса в этой акции");
