@@ -1,8 +1,16 @@
+package Menu;
+
+import Bases.ComicBase;
+import Bases.UsersDB;
+import Discount.Discount;
+import Serrialization.Serialization;
+import Start.StartProgram;
+
 import java.util.*;
 
-public class AdminMenuUi{
-    static void printAdminMenu(String login, ComicBase comicBase, Discount discount, UsersDB usersDB) {
-        DeSerialization deSerialization = new DeSerialization();
+public class AdminMenuUi {
+    public void printAdminMenu(String login, ComicBase comicBase, Discount discount, UsersDB usersDB) {
+        Serialization serialization = new Serialization();
         Scanner in = new Scanner(System.in);
         System.out.println("Добро пожаловать: " + login);
         System.out.println("Выберите что необходимо сделать: ");
@@ -66,7 +74,7 @@ public class AdminMenuUi{
                     printAdminMenu(login, comicBase, discount, usersDB);
                 }
                 case 10: {
-                    System.out.println(deSerialization.deSerialization("ComicDB.txt"));
+                    System.out.println(serialization.deSerialization("ComicDB.txt"));
                     printAdminMenu(login, comicBase, discount, usersDB);
                 }
                 case 11: {
@@ -78,11 +86,13 @@ public class AdminMenuUi{
                     printAdminMenu(login, comicBase, discount, usersDB);
                 }
                 case 13: {
-                    UserMenuUi.printUserMenu(login, comicBase,discount);
+                    UserMenuUi userMenuUi = new UserMenuUi();
+                    userMenuUi.printUserMenu(login, comicBase, discount);
                     printAdminMenu(login, comicBase, discount, usersDB);
                 }
                 case 0: {
-                    StartProgram.init();
+                    StartProgram startProgram = new StartProgram();
+                    startProgram.init();
                 }
                 default: {
                     System.out.println("Выберите один из доступных вариантов");

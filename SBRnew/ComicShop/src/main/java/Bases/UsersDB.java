@@ -1,3 +1,7 @@
+package Bases;
+
+import Serrialization.Serialization;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -8,7 +12,6 @@ public class UsersDB implements Serializable {
     static Map<String, User> userDB = new HashMap<>();
 
     Serialization serialization = new Serialization();
-    DeSerialization deSerialization = new DeSerialization();
 
     public void userDBInit() {
         userDB.put("admin", new User("admin", "admin", "admin"));
@@ -21,8 +24,7 @@ public class UsersDB implements Serializable {
 
     }
 
-    void userCreate() {
-//        userDB = (Map<String, User>) DeSerialization.deSerialization("loginData.txt");
+    public void userCreate() {
         while (true) {
             Scanner in = new Scanner(System.in);
             System.out.println("Введите логин: ");
@@ -48,7 +50,7 @@ public class UsersDB implements Serializable {
 
     public String start(String login) {
         String role = "wrong";
-        userDB = (Map<String, User>) deSerialization.deSerialization("loginData.txt");
+        userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
         Scanner in = new Scanner(System.in);
         if (!userDB.containsKey(login)) {
             System.out.println("Такой пользователь не найден в системе");
@@ -76,9 +78,9 @@ public class UsersDB implements Serializable {
         return role;
     }
 
-     String authorization(String login) {
+    public String authorization(String login) {
         Scanner in = new Scanner(System.in);
-        userDB = (Map<String, User>) deSerialization.deSerialization("loginData.txt");
+        userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
         while (true) {
             System.out.print("Введите пароль: ");
             String password = in.next();
@@ -90,10 +92,10 @@ public class UsersDB implements Serializable {
     }
 
 
-     String changeRole(String login) {
+    public String changeRole(String login) {
         Scanner in = new Scanner(System.in);
-        userDB = (Map<String, User>) deSerialization.deSerialization("loginData.txt");
-        System.out.println(deSerialization.deSerialization("loginData.txt"));
+        userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
+        System.out.println(serialization.deSerialization("loginData.txt"));
         System.out.println("Какому пользователю необходимо изменить права?\nИли 0 для отмены");
         String changedName = in.next();
         if (changedName.equals("0")) {
@@ -126,10 +128,10 @@ public class UsersDB implements Serializable {
         return "этой строчки не должно быть";
     }
 
-     String deleteUser() {
+    public String deleteUser() {
         Scanner in = new Scanner(System.in);
-        userDB = (Map<String, User>) deSerialization.deSerialization("loginData.txt");
-        System.out.println(deSerialization.deSerialization("loginData.txt"));
+        userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
+        System.out.println(serialization.deSerialization("loginData.txt"));
         System.out.println("Какого пользователя необходимо удалить\nИли 0 для отмены");
         String deleteName = in.next();
         if (deleteName.equals("0")) {
@@ -138,7 +140,7 @@ public class UsersDB implements Serializable {
             if (userDB.containsKey(deleteName)) {
                 userDB.remove(deleteName);
                 serialization.serialization(userDB, "loginData.txt");
-                userDB = (Map<String, User>) deSerialization.deSerialization("loginData.txt");
+                userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
             } else {
                 return "Нет такого пользователя";
             }

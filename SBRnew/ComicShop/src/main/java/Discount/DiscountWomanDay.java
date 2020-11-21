@@ -1,3 +1,9 @@
+package Discount;
+
+import Bases.Comic;
+import Bases.ComicBase;
+import Serrialization.Serialization;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -7,20 +13,19 @@ public class DiscountWomanDay {
 
     private HashMap<Integer, Comic> womanDay = new HashMap<>();
     Serialization serialization = new Serialization();
-    DeSerialization deSerialization = new DeSerialization();
-    void InitDiscountWomanDay() {
-        File DiscountWomanDay = new File("DiscountWomanDay.txt");
+    public void InitDiscountWomanDay() {
+        File DiscountWomanDay = new File("Discount.DiscountWomanDay.txt");
         if (!DiscountWomanDay.isFile()) {
-            serialization.serialization(womanDay, "DiscountWomanDay.txt");
+            serialization.serialization(womanDay, "Discount.DiscountWomanDay.txt");
         } else {
-            womanDay = (HashMap<Integer, Comic>) deSerialization.deSerialization("DiscountWomanDay.txt");
+            womanDay = (HashMap<Integer, Comic>) serialization.deSerialization("Discount.DiscountWomanDay.txt");
         }
     }
 
     public void addWomanDay(int id, ComicBase comicBase) {
         comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
         womanDay.put(id, comicBase.getComicDB().get(id));
-        serialization.serialization(womanDay, "DiscountWomanDay.txt");
+        serialization.serialization(womanDay, "Discount.DiscountWomanDay.txt");
         serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
     }
 
@@ -37,7 +42,7 @@ public class DiscountWomanDay {
             if (womanDay.containsKey(id)) {
 //                comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
                 womanDay.remove(id);
-                serialization.serialization(womanDay, "DiscountWomanDay.txt");
+                serialization.serialization(womanDay, "Discount.DiscountWomanDay.txt");
                 serialization.serialization(comicBase.getComicDB(),"ComicDB.txt");
                 return true;
             } else {
@@ -47,7 +52,7 @@ public class DiscountWomanDay {
     }
 
     public void printWomanDay() {
-        System.out.println("Акция к 8 марта:\n" + deSerialization.deSerialization("DiscountWomanDay.txt"));
+        System.out.println("Акция к 8 марта:\n" + serialization.deSerialization("Discount.DiscountWomanDay.txt"));
     }
 
 }

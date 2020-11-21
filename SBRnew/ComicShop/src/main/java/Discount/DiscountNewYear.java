@@ -1,3 +1,8 @@
+package Discount;
+
+import Bases.Comic;
+import Bases.ComicBase;
+import Serrialization.Serialization;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -6,14 +11,13 @@ public class DiscountNewYear {
 
     private HashMap<Integer, Comic> newYear = new HashMap<>();
     Serialization serialization = new Serialization();
-    DeSerialization deSerialization = new DeSerialization();
-    void InitDiscountNewYear() {
-        File DiscountNewYear = new File("DiscountNewYear.txt");
+    public void InitDiscountNewYear() {
+        File DiscountNewYear = new File("Discount.DiscountNewYear.txt");
 
         if (!DiscountNewYear.isFile()) {
-            serialization.serialization(newYear, "DiscountNewYear.txt");
+            serialization.serialization(newYear, "Discount.DiscountNewYear.txt");
         } else {
-            newYear = (HashMap<Integer, Comic>) deSerialization.deSerialization("DiscountNewYear.txt");
+            newYear = (HashMap<Integer, Comic>) serialization.deSerialization("Discount.DiscountNewYear.txt");
         }
     }
 
@@ -21,7 +25,7 @@ public class DiscountNewYear {
         comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
         newYear.put(id, comicBase.getComicDB().get(id));
         serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
-        serialization.serialization(newYear, "DiscountNewYear.txt");
+        serialization.serialization(newYear, "Discount.DiscountNewYear.txt");
     }
 
 
@@ -36,9 +40,8 @@ public class DiscountNewYear {
             }
             id = in.nextInt();
             if (newYear.containsKey(id)) {
-//                comicBase.getComicDB().get(id).setPriceForSale((int) ((comicBase.getComicDB().get(id).getPriceForSale() + 100 * 0.8) + comicBase.getComicDB().get(id).getPriceForSale()));
                 newYear.remove(id);
-                serialization.serialization(newYear, "DiscountNewYear.txt");
+                serialization.serialization(newYear, "Discount.DiscountNewYear.txt");
                 serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
                 return true;
             } else {
@@ -48,7 +51,7 @@ public class DiscountNewYear {
     }
 
     public void printNewYear() {
-        System.out.println("Новогодние акции:\n" + deSerialization.deSerialization("DiscountNewYear.txt"));
+        System.out.println("Новогодние акции:\n" + serialization.deSerialization("Discount.DiscountNewYear.txt"));
     }
 
 

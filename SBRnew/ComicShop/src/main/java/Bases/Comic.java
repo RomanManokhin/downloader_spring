@@ -1,7 +1,8 @@
+package Bases;
+
 import java.io.Serializable;
 
 public class Comic implements Serializable {
-
 
     private String nameComic; //название комикса
     private String nameAuthor; //имя автора
@@ -101,7 +102,7 @@ public class Comic implements Serializable {
 
     @Override
     public String toString() {
-        return "Comic{" +
+        return "Bases.Comic{" +
                 "Название комикса -'" + nameComic + '\'' +
                 ", имя автора -'" + nameAuthor + '\'' +
                 ", страницы -" + numberOfPages +

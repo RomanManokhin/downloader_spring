@@ -1,15 +1,27 @@
+package Start;
+
+import Bases.ComicBase;
+import Bases.UsersDB;
+import Discount.Discount;
+import Menu.AdminMenuUi;
+import Menu.UserMenuUi;
+import Discount.PopularityComic;
+
 import java.util.Scanner;
 
 public class StartProgram {
     public static void main(String[] args) {
-        StartProgram.init();
+        StartProgram startProgram = new StartProgram();
+        startProgram.init();
     }
 
-    static void init() {
+    public  void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
         Discount discount = new Discount();
         comicBase.loadDb("ComicDB.txt");
+        PopularityComic popularityComic = new PopularityComic();
+        popularityComic.initPopularity(comicBase);
         UsersDB usersDB = new UsersDB();
         usersDB.userDBInit();
 
@@ -22,9 +34,11 @@ public class StartProgram {
                 continue;
             } else {
                 if (role.equals("admin")) {
-                    AdminMenuUi.printAdminMenu(login, comicBase, discount, usersDB);
+                    AdminMenuUi adminMenuUi = new AdminMenuUi();
+                    adminMenuUi.printAdminMenu(login, comicBase, discount, usersDB);
                 } else {
-                    UserMenuUi.printUserMenu(login, comicBase, discount);
+                    UserMenuUi userMenuUi = new UserMenuUi();
+                    userMenuUi.printUserMenu(login, comicBase, discount);
                 }
             }
             break;

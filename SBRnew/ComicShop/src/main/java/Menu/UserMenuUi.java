@@ -1,8 +1,12 @@
-import java.util.Scanner;
+package Menu;
 
+import Discount.Discount;
+import Bases.ComicBase;
+import java.util.Scanner;
+import Start.StartProgram;
 public class UserMenuUi {
 
-    static void printUserMenu(String login, ComicBase comicBase, Discount discount) {
+    public void printUserMenu(String login, ComicBase comicBase, Discount discount) {
         Scanner in = new Scanner(System.in);
         System.out.println("Добро пожаловать: " + login);
         System.out.println("Что вы хотите сделать? ");
@@ -52,7 +56,8 @@ public class UserMenuUi {
 
                 }
                 case 0: {
-                    StartProgram.init();
+                    StartProgram st = new StartProgram();
+                    st.init();
                 }
             }
         } else {

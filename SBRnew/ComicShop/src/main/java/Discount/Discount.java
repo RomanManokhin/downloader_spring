@@ -1,10 +1,16 @@
+package Discount;
+
+import Bases.ComicBase;
+import Bases.Comic;
+import Bases.User;
+import Bases.UsersDB;
 import java.util.*;
 
 public class Discount {
-
     DiscountNewYear discountNewYear = new DiscountNewYear();
     DiscountManDay discountManDay = new DiscountManDay();
     DiscountWomanDay discountWomanDay = new DiscountWomanDay();
+
 
     public Discount() {
         discountNewYear.InitDiscountNewYear();

@@ -1,3 +1,5 @@
+package Bases;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -44,7 +46,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Bases.User{" +
                 "name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 '}';
