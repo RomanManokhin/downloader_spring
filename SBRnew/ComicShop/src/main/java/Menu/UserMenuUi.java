@@ -53,10 +53,10 @@ public class UserMenuUi {
 
                 }
                 case 8: {
-
+                    p.printBestOfMonth();
+                    st.init();
                 }
                 case 9: {
-
                     p.printBestOfYear();
                     st.init();
                 }
