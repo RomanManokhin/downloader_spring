@@ -4,10 +4,13 @@ import Discount.Discount;
 import Bases.ComicBase;
 import java.util.Scanner;
 import Start.StartProgram;
+import Discount.PopularityComic;
 public class UserMenuUi {
 
     public void printUserMenu(String login, ComicBase comicBase, Discount discount) {
         Scanner in = new Scanner(System.in);
+        StartProgram st = new StartProgram();
+        PopularityComic p = new PopularityComic();
         System.out.println("Добро пожаловать: " + login);
         System.out.println("Что вы хотите сделать? ");
         System.out.println("1. Показать список комиксов");
@@ -16,9 +19,9 @@ public class UserMenuUi {
         System.out.println("4. Список новинок");
         System.out.println("5. Список самых продаваемых комиксов");
         System.out.println("6. Список самых популярных авторов");
-        System.out.println("7. Список самых популярных жанров за день");
-        System.out.println("8. Список самых популярных жанров за месяц");
-        System.out.println("9. Список самых популярных жанров за год");
+        System.out.println("7. Список самых популярных комиксов за день");
+        System.out.println("8. Список самых популярных комиксов за месяц");
+        System.out.println("9. Список самых популярных комиксов за год");
         System.out.println("0. Закончит работу с приложением");
 
         boolean isInt = in.hasNextInt();
@@ -54,9 +57,10 @@ public class UserMenuUi {
                 }
                 case 9: {
 
+                    p.printBestOfYear();
+                    st.init();
                 }
                 case 0: {
-                    StartProgram st = new StartProgram();
                     st.init();
                 }
             }
