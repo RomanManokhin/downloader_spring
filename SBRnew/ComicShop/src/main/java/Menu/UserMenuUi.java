@@ -2,15 +2,17 @@ package Menu;
 
 import Discount.Discount;
 import Bases.ComicBase;
+
 import java.util.Scanner;
+
 import Start.StartProgram;
 import Discount.PopularityComic;
+
 public class UserMenuUi {
 
-    public void printUserMenu(String login, ComicBase comicBase, Discount discount) {
+    public void printUserMenu(String login, ComicBase comicBase, Discount discount, PopularityComic popularityComic) {
         Scanner in = new Scanner(System.in);
         StartProgram st = new StartProgram();
-        PopularityComic p = new PopularityComic();
         System.out.println("Добро пожаловать: " + login);
         System.out.println("Что вы хотите сделать? ");
         System.out.println("1. Показать список комиксов");
@@ -31,11 +33,11 @@ public class UserMenuUi {
             switch (choice) {
                 case 1: {
                     comicBase.printComicDBForUser();
-                    printUserMenu(login, comicBase, discount);
+                    printUserMenu(login, comicBase, discount, popularityComic);
                 }
                 case 2: {
                     comicBase.sellComic();
-                    printUserMenu(login, comicBase, discount);
+                    printUserMenu(login, comicBase, discount, popularityComic);
                 }
                 case 3: {
 
@@ -44,20 +46,23 @@ public class UserMenuUi {
 
                 }
                 case 5: {
-
+                    popularityComic.printBestOfTheBest();
+                    st.init();
                 }
                 case 6: {
-
+                    popularityComic.printBestAuthor();
+                    st.init();
                 }
                 case 7: {
-
+                    popularityComic.printBestOfDay();
+                    st.init();
                 }
                 case 8: {
-                    p.printBestOfMonth();
+                    popularityComic.printBestOfMonth();
                     st.init();
                 }
                 case 9: {
-                    p.printBestOfYear();
+                    popularityComic.printBestOfYear();
                     st.init();
                 }
                 case 0: {
@@ -66,7 +71,7 @@ public class UserMenuUi {
             }
         } else {
             System.out.println("Выберите один из предложенных вариантов\n");
-            printUserMenu(login, comicBase, discount);
+            printUserMenu(login, comicBase, discount, popularityComic);
         }
 
 

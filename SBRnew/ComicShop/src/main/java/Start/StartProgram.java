@@ -35,10 +35,10 @@ public class StartProgram {
             } else {
                 if (role.equals("admin")) {
                     AdminMenuUi adminMenuUi = new AdminMenuUi();
-                    adminMenuUi.printAdminMenu(login, comicBase, discount, usersDB);
+                    adminMenuUi.printAdminMenu(login, comicBase, discount, usersDB, popularityComic);
                 } else {
                     UserMenuUi userMenuUi = new UserMenuUi();
-                    userMenuUi.printUserMenu(login, comicBase, discount);
+                    userMenuUi.printUserMenu(login, comicBase, discount, popularityComic);
                 }
             }
             break;
