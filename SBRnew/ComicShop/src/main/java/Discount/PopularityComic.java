@@ -153,6 +153,14 @@ public class PopularityComic {
         System.out.println("Список самых популярных авторов");
         System.out.println("-------------------------------");
 
+        Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
+
+        mp.replaceAll((k, v) -> v.stream()
+                .filter(y -> y.getYear() == Year.now().getValue()).collect(Collectors.toList()));
+
+        mp.entrySet().stream()
+                .filter(x -> x.getValue().size() > 12)
+                .forEach(x -> System.out.println(x.getKey().getNameAuthor()));
 
     }
 

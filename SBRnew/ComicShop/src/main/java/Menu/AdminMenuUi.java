@@ -29,9 +29,7 @@ public class AdminMenuUi {
         System.out.println("13. Доп. элементы меню");
         System.out.println("0. Закончить работу с приложением");
 
-        boolean isInt = in.hasNextInt();
-
-        if (isInt) {
+        if (in.hasNextInt()) {
             int choice = in.nextInt();
             switch (choice) {
                 case 1: {

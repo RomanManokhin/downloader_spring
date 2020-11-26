@@ -41,7 +41,6 @@ public class StartProgram {
                     userMenuUi.printUserMenu(login, comicBase, discount, popularityComic);
                 }
             }
-            break;
         }
     }
 
