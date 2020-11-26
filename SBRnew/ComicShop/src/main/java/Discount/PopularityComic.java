@@ -2,13 +2,11 @@ package Discount;
 
 import Bases.Comic;
 import Bases.ComicBase;
-import sun.util.resources.LocaleData;
 
 import java.time.*;
 import java.util.*;
-import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PopularityComic {
 
@@ -72,12 +70,11 @@ public class PopularityComic {
                         LocalDate.of(2020, 5, 4),
                         LocalDate.of(2020, 5, 4)));
 
-
         popular.put(comicBase.getComicDB().get(1), yearTest);
         popular.put(comicBase.getComicDB().get(4), monthTest);
         popular.put(comicBase.getComicDB().get(6), dayTest);
         popular.put(comicBase.getComicDB().get(7), allTest);
-        popular.put(comicBase.getComicDB().get(3), bestTest);
+        popular.put(comicBase.getComicDB().get(10), bestTest);
     }
 
     public void addComicToPopular(int id, ComicBase comicBase, LocalDate newDate) {
@@ -118,6 +115,8 @@ public class PopularityComic {
 
         mp.entrySet()
                 .stream()
+                .sorted(Comparator.comparing(x -> ((Map.Entry<Comic, ArrayList<LocalDate>>) x).getValue().size()).reversed())
+                .limit(3)
                 .filter(x -> !x.getValue().isEmpty() && x.getValue().size() > 3)
                 .forEach(x -> System.out.println(x.getKey()));
 
@@ -141,11 +140,12 @@ public class PopularityComic {
     }
 
     public void printBestOfTheBest() {
-        System.out.println("---------------------------");
+        System.out.println("---------------------------------");
         System.out.println("Список самых продаваемых комиксов");
-        System.out.println("---------------------------");
+        System.out.println("---------------------------------");
 
         popular.entrySet().stream().filter(x -> x.getValue().size() > 20).forEach(y -> System.out.println(y.getKey()));
+
     }
 
     public void printBestAuthor() {
@@ -153,14 +153,42 @@ public class PopularityComic {
         System.out.println("Список самых популярных авторов");
         System.out.println("-------------------------------");
 
-        Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
 
-        mp.replaceAll((k, v) -> v.stream()
-                .filter(y -> y.getYear() == Year.now().getValue()).collect(Collectors.toList()));
+        HashMap<String, Integer> hm = new HashMap<>();
 
-        mp.entrySet().stream()
-                .filter(x -> x.getValue().size() > 12)
-                .forEach(x -> System.out.println(x.getKey().getNameAuthor()));
+        for (Map.Entry<Comic, ArrayList<LocalDate>> entry : popular.entrySet()) {
+            String curAuthor = entry.getKey().getNameAuthor();
+            if (!hm.containsKey(curAuthor)) {
+                hm.put(curAuthor, entry.getValue().size());
+            } else {
+                hm.put(curAuthor, hm.get(curAuthor) + entry.getValue().size());
+            }
+        }
+        hm.forEach((key, value) -> System.out.println(key));
+
+//        HashMap<String, Integer> zds =  mp.entrySet().stream().map((x -> new AbstractMap.SimpleEntry<String, Integer>(x.getKey().getNameAuthor(), x.getValue().size()))).collect(Collectors.toMap());
+        //mp.replaceAll((k,v) -> k.getNameAuthor() )
+//                /.filter(y -> y.getYear() == Year.now().getValue() && y.getMonthValue() == LocalDate.now().getMonthValue())
+//                .collect(Collectors.toList()));
+
+//        popular.entrySet()
+//                .stream()
+//                .sorted(Comparator.comparing(x -> ((Map.Entry<Comic, ArrayList<LocalDate>>)x).getValue().size()).reversed())
+//
+//                //.filter(x -> !x.getValue().isEmpty() && x.getValue().size() > 3)
+//                .forEach(x -> System.out.println(x.getKey()));
+
+//
+//        Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
+//
+//        mp.replaceAll((k, v) -> v.stream()
+//                .filter(y -> y.getYear() == Year.now().getValue() && y.getMonthValue() == LocalDate.now().getMonthValue())
+//                .collect(Collectors.toList()));
+
+//        mp.entrySet()
+//                .stream()
+//                .filter(x -> !x.getValue().isEmpty() && x.getValue().size() > 3)
+//                .forEach(x -> System.out.println(x.getKey()));
 
     }
 
