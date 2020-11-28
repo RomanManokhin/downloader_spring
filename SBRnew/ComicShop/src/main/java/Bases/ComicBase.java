@@ -325,13 +325,13 @@ public class ComicBase implements Serializable {
         Scanner in = new Scanner(System.in);
         printComicDB();
         int id;
-        do { //что бы он выполнялся хоть один раз, в данному случае используем что бы всегда видеть текст, когда он будет повторяться
+        do {
             System.out.println("Какой комикс списываем, введите id ");
-            while (!in.hasNextInt()) { //проверяем на !не число
+            while (!in.hasNextInt()) {
                 System.out.print("Введите id для списания: ");
-                in.next();  // и записываем его сюда, если это не число
+                in.next();
             }
-            id = in.nextInt(); // если вводится число записывается сюда
+            id = in.nextInt();
 
             if (comicDB.containsKey(id) && comicDB.get(id).getNumberOfComic() > 0) {
                 comicDB.get(id).setNumberOfComic(comicDB.get(id).getNumberOfComic() - 1);

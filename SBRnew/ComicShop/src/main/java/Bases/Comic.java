@@ -102,7 +102,7 @@ public class Comic implements Serializable {
 
     @Override
     public String toString() {
-        return "Bases.Comic{" +
+        return "Comic{" +
                 "Название комикса -'" + nameComic + '\'' +
                 ", имя автора -'" + nameAuthor + '\'' +
                 ", страницы -" + numberOfPages +
