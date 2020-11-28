@@ -11,10 +11,13 @@ public class DiscountNewYear {
 
     private HashMap<Integer, Comic> newYear = new HashMap<>();
     Serialization serialization = new Serialization();
-    public void InitDiscountNewYear() {
+    public void InitDiscountNewYear(ComicBase comicBase) {
         File DiscountNewYear = new File("Discount.DiscountNewYear.txt");
 
         if (!DiscountNewYear.isFile()) {
+            newYear.put(5, comicBase.getComicDB().get(5));
+            newYear.put(1, comicBase.getComicDB().get(3));
+            newYear.put(3, comicBase.getComicDB().get(1));
             serialization.serialization(newYear, "Discount.DiscountNewYear.txt");
         } else {
             newYear = (HashMap<Integer, Comic>) serialization.deSerialization("Discount.DiscountNewYear.txt");

@@ -18,11 +18,13 @@ public class StartProgram {
     public  void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
-        Discount discount = new Discount();
-        comicBase.loadDb("ComicDB.txt");
+        Discount discount = new Discount(comicBase);
         PopularityComic popularityComic = new PopularityComic();
-        popularityComic.initPopularity(comicBase);
         UsersDB usersDB = new UsersDB();
+
+
+        comicBase.loadDb("ComicDB.txt");
+        popularityComic.initPopularity(comicBase);
         usersDB.userDBInit();
 
         while (true) {

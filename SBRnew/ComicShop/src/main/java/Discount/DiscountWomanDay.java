@@ -13,9 +13,12 @@ public class DiscountWomanDay {
 
     private HashMap<Integer, Comic> womanDay = new HashMap<>();
     Serialization serialization = new Serialization();
-    public void InitDiscountWomanDay() {
+    public void InitDiscountWomanDay(ComicBase comicBase) {
         File DiscountWomanDay = new File("Discount.DiscountWomanDay.txt");
         if (!DiscountWomanDay.isFile()) {
+            womanDay.put(13, comicBase.getComicDB().get(13));
+            womanDay.put(12, comicBase.getComicDB().get(12));
+            womanDay.put(11, comicBase.getComicDB().get(11));
             serialization.serialization(womanDay, "Discount.DiscountWomanDay.txt");
         } else {
             womanDay = (HashMap<Integer, Comic>) serialization.deSerialization("Discount.DiscountWomanDay.txt");

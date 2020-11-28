@@ -106,7 +106,6 @@ public class UserMenuUi {
         System.out.println("7. Список самых популярных комиксов за день");
         System.out.println("8. Список самых популярных комиксов за месяц");
         System.out.println("9. Список самых популярных комиксов за год");
-        System.out.println("10. Показать акционные комиксы");
         System.out.println("0. Закончит работу с приложением");
 
         boolean isInt = in.hasNextInt();
@@ -148,10 +147,6 @@ public class UserMenuUi {
                 }
                 case 9: {
                     popularityComic.printBestOfYear();
-                    st.init();
-                }
-                case 10: {
-                    discount.printDiscount();
                     st.init();
                 }
                 case 0: {

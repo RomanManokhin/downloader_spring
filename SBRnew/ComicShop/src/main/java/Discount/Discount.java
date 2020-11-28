@@ -10,10 +10,10 @@ public class Discount {
     DiscountWomanDay discountWomanDay = new DiscountWomanDay();
 
 
-    public Discount() {
-        discountNewYear.InitDiscountNewYear();
-        discountManDay.InitDiscountManDay();
-        discountWomanDay.InitDiscountWomanDay();
+    public Discount(ComicBase comicBase) {
+        discountNewYear.InitDiscountNewYear(comicBase);
+        discountManDay.InitDiscountManDay(comicBase);
+        discountWomanDay.InitDiscountWomanDay(comicBase);
     }
 
     public void printDiscount() {
