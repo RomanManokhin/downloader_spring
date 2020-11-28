@@ -24,10 +24,8 @@ public class DiscountManDay {
     }
 
     public void addManDay(int id, ComicBase comicBase) {
-//        comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
         manDay.put(id, comicBase.getComicDB().get(id));
         serialization.serialization(manDay, "Discount.DiscountManDay.txt");
-        serialization.serialization(comicBase.getComicDB(),"ComicDB.txt");
     }
 
     public boolean deleteManDay(ComicBase comicBase) {
@@ -43,7 +41,6 @@ public class DiscountManDay {
             if (manDay.containsKey(id)) {
                 manDay.remove(id);
                 serialization.serialization(manDay, "Discount.DiscountManDay.txt");
-                serialization.serialization(comicBase.getComicDB(),"ComicDB.txt");
                 return true;
             } else {
                 return false;
@@ -55,6 +52,4 @@ public class DiscountManDay {
     public void printManDay() {
         System.out.println("Акции 23 февраля:\n" + serialization.deSerialization("Discount.DiscountManDay.txt"));
     }
-
-
 }

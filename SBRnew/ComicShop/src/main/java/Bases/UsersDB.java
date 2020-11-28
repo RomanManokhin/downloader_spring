@@ -20,6 +20,8 @@ public class UsersDB implements Serializable {
         File file = new File("loginData.txt");
         if (!file.isFile()) {
             serialization.serialization(userDB, "loginData.txt");
+        } else {
+            serialization.deSerialization("loginData.txt");
         }
 
     }

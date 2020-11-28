@@ -85,7 +85,7 @@ public class AdminMenuUi {
                 }
                 case 13: {
                     UserMenuUi userMenuUi = new UserMenuUi();
-                    userMenuUi.printUserMenu(login, comicBase, discount, popularityComic);
+                    userMenuUi.printUserMenu(login, comicBase, discount, popularityComic, 1);
                     printAdminMenu(login, comicBase, discount, usersDB, popularityComic);
                 }
                 case 0: {
@@ -102,4 +102,6 @@ public class AdminMenuUi {
             printAdminMenu(login, comicBase, discount, usersDB, popularityComic);
         }
     }
+
+
 }

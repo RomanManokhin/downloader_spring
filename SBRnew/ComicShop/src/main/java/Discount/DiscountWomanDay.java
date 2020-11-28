@@ -23,10 +23,8 @@ public class DiscountWomanDay {
     }
 
     public void addWomanDay(int id, ComicBase comicBase) {
-        comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
         womanDay.put(id, comicBase.getComicDB().get(id));
         serialization.serialization(womanDay, "Discount.DiscountWomanDay.txt");
-        serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
     }
 
     public boolean deleteWomanDay(ComicBase comicBase) {
@@ -40,10 +38,8 @@ public class DiscountWomanDay {
             }
             id = in.nextInt();
             if (womanDay.containsKey(id)) {
-//                comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
                 womanDay.remove(id);
                 serialization.serialization(womanDay, "Discount.DiscountWomanDay.txt");
-                serialization.serialization(comicBase.getComicDB(),"ComicDB.txt");
                 return true;
             } else {
                 return false;

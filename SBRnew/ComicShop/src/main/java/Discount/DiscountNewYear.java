@@ -22,9 +22,7 @@ public class DiscountNewYear {
     }
 
     public void addNewYear(int id, ComicBase comicBase) {
-        comicBase.getComicDB().get(id).setPriceForSale((int) (comicBase.getComicDB().get(id).getPriceForSale() / 100 * 80));
         newYear.put(id, comicBase.getComicDB().get(id));
-        serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
         serialization.serialization(newYear, "Discount.DiscountNewYear.txt");
     }
 
@@ -42,7 +40,6 @@ public class DiscountNewYear {
             if (newYear.containsKey(id)) {
                 newYear.remove(id);
                 serialization.serialization(newYear, "Discount.DiscountNewYear.txt");
-                serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
                 return true;
             } else {
                 return false;

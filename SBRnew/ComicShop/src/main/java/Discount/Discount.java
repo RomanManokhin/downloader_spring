@@ -1,9 +1,7 @@
 package Discount;
 
 import Bases.ComicBase;
-import Bases.Comic;
-import Bases.User;
-import Bases.UsersDB;
+
 import java.util.*;
 
 public class Discount {
@@ -87,13 +85,13 @@ public class Discount {
         do {
             try {
                 id = in.nextInt();
-                if (!comicBase.getComicDB().containsKey(id)) {
+                if (!comicBase.getComicDB().containsKey(id) && comicBase.getComicDB().get(id) == null) {
                     System.out.println("Такого id нет\nВведите корректный id");
-                    continue;
+                    addAction(comicBase);
                 }
             } catch (Exception e) {
                 System.out.println("Такого id нет\nВведите корректный id ");
-                continue;
+                addAction(comicBase);
             }
         } while (id <= 0);
 

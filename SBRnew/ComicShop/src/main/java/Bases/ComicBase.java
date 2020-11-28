@@ -12,7 +12,8 @@ public class ComicBase implements Serializable {
 
     private SortedMap<Integer, Comic> comicDB;
     Serialization serialization = new Serialization();
-    public ComicBase(){
+
+    public ComicBase() {
         comicDB = new TreeMap<>();
     }
 
@@ -162,11 +163,11 @@ public class ComicBase implements Serializable {
             System.out.print("Введите id для изменения: ");
             try {
                 id = in.nextInt();
-                if (!comicDB.containsKey(id)){
+                if (!comicDB.containsKey(id)) {
                     System.out.println("Такого id нет\nВведите корректный id");
                     continue;
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Такого id нет\nВведите корректный id ");
                 continue;
             }
@@ -287,7 +288,7 @@ public class ComicBase implements Serializable {
                     }
                     case 0:
                         break;
-                    default : {
+                    default: {
                         System.out.println("Такого пункта меню нет");
                         changeComic();
                     }
@@ -298,16 +299,15 @@ public class ComicBase implements Serializable {
     }
 
 
-
     public void printComicDB() {
         System.out.println("Комиксы в базе");
         System.out.println(serialization.deSerialization("ComicDB.txt"));
     }
 
-    public void printComicDBForUser(){
+    public void printComicDBForUser() {
         System.out.println("Комиксы в базе");
         serialization.deSerialization("ComicDB.txt");
-        for(Integer key : comicDB.keySet()){
+        for (Integer key : comicDB.keySet()) {
             System.out.println("id " + key + " {" +
                     "Название комикса -'" + comicDB.get(key).getNameComic() + '\'' +
                     ", имя автора -'" + comicDB.get(key).getNameAuthor() + '\'' +
@@ -321,7 +321,7 @@ public class ComicBase implements Serializable {
         }
     }
 
-    public void writeOffComic(){
+    public void writeOffComic() {
         Scanner in = new Scanner(System.in);
         printComicDB();
         int id;
@@ -342,7 +342,7 @@ public class ComicBase implements Serializable {
         serialization.serialization(comicDB, "ComicDB.txt");
     }
 
-    public void sellComic(){
+    public void sellComic() {
         Scanner in = new Scanner(System.in);
         printComicDB();
         int id;
@@ -354,10 +354,14 @@ public class ComicBase implements Serializable {
             }
             id = in.nextInt();
 
-            if (comicDB.containsKey(id) && comicDB.get(id).getNumberOfComic() > 0) {
-                comicDB.get(id).setNumberOfComic(comicDB.get(id).getNumberOfComic() - 1);
+            if (comicDB.containsKey(id)) {
+                if (comicDB.get(id).getNumberOfComic() > 0) {
+                    comicDB.get(id).setNumberOfComic(comicDB.get(id).getNumberOfComic() - 1);
+                } else {
+                    System.out.println("Данный комикс закончился");
+                }
             } else {
-                System.out.println("Данный комикс закончился");
+                System.out.println("Нет такого комикса");
             }
         } while (id <= 0);
         serialization.serialization(comicDB, "ComicDB.txt");
