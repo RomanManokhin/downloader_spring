@@ -68,7 +68,7 @@ public class AdminMenuUi {
                     printAdminMenu(login, comicBase, discount, usersDB, popularityComic);
                 }
                 case 9: {
-                    System.out.println("В разработке");
+                    System.out.println("В разработке ╮(￣_￣)╭");
                     printAdminMenu(login, comicBase, discount, usersDB, popularityComic);
                 }
                 case 10: {

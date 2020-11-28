@@ -123,11 +123,11 @@ public class UserMenuUi {
                     printUserMenu(login, comicBase, discount, popularityComic);
                 }
                 case 3: {
-                    System.out.println("В разработке");
+                    System.out.println("В разработке ╮(￣_￣)╭");
                     printUserMenu(login, comicBase, discount, popularityComic);
                 }
                 case 4: {
-                    System.out.println("В разработке");
+                    System.out.println("В разработке ╮(￣_￣)╭");
                     printUserMenu(login, comicBase, discount, popularityComic);
                 }
                 case 5: {
