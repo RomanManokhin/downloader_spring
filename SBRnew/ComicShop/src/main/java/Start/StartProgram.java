@@ -11,8 +11,7 @@ import java.util.Scanner;
 
 public class StartProgram {
     public static void main(String[] args) {
-        StartProgram startProgram = new StartProgram();
-        startProgram.init();
+                new StartProgram().init();
     }
 
     public  void init() {
@@ -21,7 +20,6 @@ public class StartProgram {
         Discount discount = new Discount(comicBase);
         PopularityComic popularityComic = new PopularityComic();
         UsersDB usersDB = new UsersDB();
-
 
         comicBase.loadDb("ComicDB.txt");
         popularityComic.initPopularity(comicBase);
