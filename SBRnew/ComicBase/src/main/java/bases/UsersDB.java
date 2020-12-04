@@ -1,6 +1,7 @@
-package Bases;
+package bases;
 
-import Serrialization.Serialization;
+import serrialization.Serialization;
+import start.StartProgram;
 
 import java.io.File;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class UsersDB implements Serializable {
-    static Map<String, User> userDB = new HashMap<>();
+    private Map<String, User> userDB = new HashMap<>();
 
     Serialization serialization = new Serialization();
 
@@ -94,59 +95,34 @@ public class UsersDB implements Serializable {
     }
 
 
-    public String changeRole(String login) {
-        Scanner in = new Scanner(System.in);
-        userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
-        System.out.println(serialization.deSerialization("loginData.txt"));
-        System.out.println("Какому пользователю необходимо изменить права?\nИли 0 для отмены");
-        String changedName = in.next();
-        if (changedName.equals("0")) {
-            return "Отмена";
-        } else {
-            if (userDB.containsKey(changedName)) {
-                if (userDB.get(changedName).getRole().equals("user")) {
-                    userDB.get(changedName).setRole("admin");
-                    serialization.serialization(userDB, "loginData.txt");
-                    if (userDB.get(login).getName().equals(changedName)) {
-                        System.out.println("Роль изменана на : admin, перезайдите в программу");
-                        System.exit(0);
-                    } else {
-                        return "Роль изменана на : admin";
-                    }
-                } else {
-                    userDB.get(changedName).setRole("user");
-                    serialization.serialization(userDB, "loginData.txt");
-                    if (userDB.get(login).getName().equals(changedName)) {
-                        System.out.println("Роль изменана на : user, перезайдите в программу");
-                        System.exit(0);
-                    } else {
-                        return "Роль изменана на : user";
-                    }
-                }
+    public boolean changeRole(String nameChange, String login) {
+        if (userDB.containsKey(nameChange)) {
+            if (userDB.get(nameChange).getRole().equals("user")) {
+                userDB.get(nameChange).setRole("admin");
             } else {
-                return "Введён не верный логин";
+                userDB.get(nameChange).setRole("user");
             }
+            serialization.serialization(userDB, "loginData.txt");
+            if (userDB.get(nameChange).getName().equals(login)) {
+                new StartProgram().init();
+            }
+            return true;
+        } else {
+            return false;
         }
-        return "этой строчки не должно быть";
     }
 
-    public String deleteUser() {
-        Scanner in = new Scanner(System.in);
-        userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
-        System.out.println(serialization.deSerialization("loginData.txt"));
-        System.out.println("Какого пользователя необходимо удалить\nИли 0 для отмены");
-        String deleteName = in.next();
-        if (deleteName.equals("0")) {
-            return "Выход";
+    public boolean deleteUser(String deleteName, String login) {
+        if (userDB.containsKey(deleteName)) {
+            userDB.remove(deleteName);
+            serialization.serialization(userDB, "loginData.txt");
+            return true;
         } else {
-            if (userDB.containsKey(deleteName)) {
-                userDB.remove(deleteName);
-                serialization.serialization(userDB, "loginData.txt");
-                userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
-            } else {
-                return "Нет такого пользователя";
-            }
+            return false;
         }
-        return "Пользователь " + deleteName + " удалён";
+    }
+
+    public Map<String, User> getUserDB() {
+        return userDB;
     }
 }

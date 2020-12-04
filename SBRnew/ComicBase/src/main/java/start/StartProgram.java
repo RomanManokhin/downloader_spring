@@ -1,9 +1,9 @@
-package Start;
+package start;
 
-import Bases.ComicBase;
-import Bases.UsersDB;
-import Menu.AdminMenuUi;
-import Menu.UserMenuUi;
+import bases.ComicBase;
+import bases.UsersDB;
+import menu.AdminMenuUi;
+import menu.UserMenuUi;
 import popularComic.PopularityComic;
 import discount.DiscountBase;
 

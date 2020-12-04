@@ -1,7 +1,7 @@
 package popularComic;
 
-import Bases.Comic;
-import Bases.ComicBase;
+import bases.Comic;
+import bases.ComicBase;
 
 import java.time.*;
 import java.util.*;

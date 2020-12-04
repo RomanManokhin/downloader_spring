@@ -1,11 +1,11 @@
-package Menu;
+package menu;
 
-import Bases.ComicBase;
+import bases.ComicBase;
 
 import java.util.Scanner;
 
 
-import Start.StartProgram;
+import start.StartProgram;
 import popularComic.PopularityComic;
 import discount.DiscountBase;
 
@@ -41,7 +41,7 @@ public class UserMenuUi {
                     printUserMenu(login, comicBase, discountBase, popularityComic);
                 }
                 case 2: {
-                    comicBase.sellComic();
+//                    comicBase.sellComic();
                     printUserMenu(login, comicBase, discountBase, popularityComic);
                 }
                 case 3: {
@@ -87,7 +87,23 @@ public class UserMenuUi {
 
 
     }
-
+    void printDiscount(DiscountBase discountBase){
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("Акции: ");
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("Новый год:");
+        System.out.println("------------------------------------------------------------------------------------");
+        discountBase.printDiscountNewYear().forEach((k, v) -> System.out.println(k + ": " + v));
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("8 Марта:");
+        System.out.println("------------------------------------------------------------------------------------");
+        discountBase.printDiscountWomenDay().forEach((k, v) -> System.out.println(k + ": " + v));
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("23 Февраля:");
+        System.out.println("------------------------------------------------------------------------------------");
+        discountBase.printDiscountManDay().forEach((k, v) -> System.out.println(k + ": " + v));
+        System.out.println("------------------------------------------------------------------------------------");
+    }
 
 
 }

@@ -1,12 +1,14 @@
-package Bases;
+package bases;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class User implements Serializable {
+public class User implements Serializable{
 
     private String name;
     private String password;
     private String role;
+
 
     public User(String name, String password, String role) {
         this.name = name;
@@ -32,12 +34,10 @@ public class User implements Serializable {
     }
 
 
-
     @Override
     public String toString() {
-        return "User{" +
+        return "" +
                 "name='" + name + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+                ", role='" + role;
     }
 }

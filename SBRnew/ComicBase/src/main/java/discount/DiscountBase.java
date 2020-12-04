@@ -1,8 +1,8 @@
 package discount;
 
-import Bases.Comic;
-import Bases.ComicBase;
-import Serrialization.Serialization;
+import bases.Comic;
+import bases.ComicBase;
+import serrialization.Serialization;
 
 import java.io.File;
 import java.util.SortedMap;
@@ -97,19 +97,16 @@ public class DiscountBase {
         }
     }
 
-    void printDiscount() {
-        System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("Акции: ");
-        System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("Новый год:");
-        System.out.println(serialization.deSerialization("DiscountNewYear.txt"));
-        System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("8 Марта:");
-        System.out.println(serialization.deSerialization("DiscountWomenDay.txt"));
-        System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("23 Февраля:");
-        System.out.println(serialization.deSerialization("DiscountManDay.txt"));
-        System.out.println("------------------------------------------------------------------------------------");
+    public SortedMap<Integer, Comic> printDiscountNewYear() {
+        return newYear;
+    }
+
+    public SortedMap<Integer, Comic> printDiscountWomenDay() {
+        return womenDay;
+    }
+
+    public SortedMap<Integer, Comic> printDiscountManDay() {
+        return manDay;
     }
 
     public SortedMap<Integer, Comic> getNewYear() {
