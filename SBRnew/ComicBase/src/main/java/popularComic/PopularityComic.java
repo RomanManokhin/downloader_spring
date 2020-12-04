@@ -1,17 +1,16 @@
-package Discount;
+package popularComic;
 
 import Bases.Comic;
 import Bases.ComicBase;
 
 import java.time.*;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PopularityComic {
 
     private LinkedHashMap<Comic, ArrayList<LocalDate>> popular = new LinkedHashMap<>();
-
 
     public void initPopularity(ComicBase comicBase) {
         ArrayList<LocalDate> yearTest = new ArrayList<>(
@@ -87,25 +86,17 @@ public class PopularityComic {
         popular.get(comicBase.getComicDB().get(id)).add(newDate);
     }
 
-    public void printBestOfYear() {
-        System.out.println("---------------------------------------");
-        System.out.println("Список самых популярных комиксов за год");
-        System.out.println("---------------------------------------");
+    public Stream<Map.Entry<Comic, List<LocalDate>>> printBestOfYear(int countBestSellOfYear) {
 
         Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
 
         mp.replaceAll((k, v) -> v.stream()
                 .filter(y -> y.getYear() == Year.now().getValue()).collect(Collectors.toList()));
 
-        mp.entrySet().stream().filter(x -> x.getValue().size() > 12).forEach(x -> System.out.println(x.getKey()));
-
-
+        return mp.entrySet().stream().filter(x -> x.getValue().size() > countBestSellOfYear);
     }
 
-    public void printBestOfMonth() {
-        System.out.println("-----------------------------------------");
-        System.out.println("Список самых популярных комиксов за месяц");
-        System.out.println("-----------------------------------------");
+    public Stream<Map.Entry<Comic, List<LocalDate>>> printBestOfMonth(int countMonthSell) {
 
         Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
 
@@ -113,20 +104,14 @@ public class PopularityComic {
                 .filter(y -> y.getYear() == Year.now().getValue() && y.getMonthValue() == LocalDate.now().getMonthValue())
                 .collect(Collectors.toList()));
 
-        mp.entrySet()
+        return mp.entrySet()
                 .stream()
                 .sorted(Comparator.comparing(x -> ((Map.Entry<Comic, ArrayList<LocalDate>>) x).getValue().size()).reversed())
                 .limit(3)
-                .filter(x -> !x.getValue().isEmpty() && x.getValue().size() > 3)
-                .forEach(x -> System.out.println(x.getKey()));
-
-
+                .filter(x -> !x.getValue().isEmpty() && x.getValue().size() > countMonthSell);
     }
 
-    public void printBestOfDay() {
-        System.out.println("----------------------------------------");
-        System.out.println("Список самых популярных комиксов за день");
-        System.out.println("----------------------------------------");
+    public Stream<Map.Entry<Comic, List<LocalDate>>> printBestOfDay() {
 
         Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
 
@@ -134,26 +119,14 @@ public class PopularityComic {
                 .filter(x -> x.getDayOfMonth() == LocalDate.now().getDayOfMonth())
                 .collect(Collectors.toList()));
 
-        mp.entrySet().stream()
-                .filter(x -> !x.getValue().isEmpty()).forEach(x -> System.out.println(x.getKey()));
-
+        return mp.entrySet().stream().filter(x -> !x.getValue().isEmpty());
     }
 
-    public void printBestOfTheBest() {
-        System.out.println("---------------------------------");
-        System.out.println("Список самых продаваемых комиксов");
-        System.out.println("---------------------------------");
-
-        popular.entrySet().stream().filter(x -> x.getValue().size() > 20).forEach(y -> System.out.println(y.getKey()));
-
+    public Stream<Map.Entry<Comic, ArrayList<LocalDate>>> printBestOfTheBest(int countForBest) {
+        return popular.entrySet().stream().filter(x -> x.getValue().size() > countForBest);
     }
 
-    public void printBestAuthor() {
-        System.out.println("-------------------------------");
-        System.out.println("Список самых популярных авторов");
-        System.out.println("-------------------------------");
-
-
+    public HashMap<String, Integer> printBestAuthor() {
         HashMap<String, Integer> hm = new HashMap<>();
 
         for (Map.Entry<Comic, ArrayList<LocalDate>> entry : popular.entrySet()) {
@@ -164,32 +137,7 @@ public class PopularityComic {
                 hm.put(curAuthor, hm.get(curAuthor) + entry.getValue().size());
             }
         }
-        hm.forEach((key, value) -> System.out.println(key));
-
-//        HashMap<String, Integer> zds =  mp.entrySet().stream().map((x -> new AbstractMap.SimpleEntry<String, Integer>(x.getKey().getNameAuthor(), x.getValue().size()))).collect(Collectors.toMap());
-        //mp.replaceAll((k,v) -> k.getNameAuthor() )
-//                /.filter(y -> y.getYear() == Year.now().getValue() && y.getMonthValue() == LocalDate.now().getMonthValue())
-//                .collect(Collectors.toList()));
-
-//        popular.entrySet()
-//                .stream()
-//                .sorted(Comparator.comparing(x -> ((Map.Entry<Comic, ArrayList<LocalDate>>)x).getValue().size()).reversed())
-//
-//                //.filter(x -> !x.getValue().isEmpty() && x.getValue().size() > 3)
-//                .forEach(x -> System.out.println(x.getKey()));
-
-//
-//        Map<Comic, List<LocalDate>> mp = new HashMap<>(popular);
-//
-//        mp.replaceAll((k, v) -> v.stream()
-//                .filter(y -> y.getYear() == Year.now().getValue() && y.getMonthValue() == LocalDate.now().getMonthValue())
-//                .collect(Collectors.toList()));
-
-//        mp.entrySet()
-//                .stream()
-//                .filter(x -> !x.getValue().isEmpty() && x.getValue().size() > 3)
-//                .forEach(x -> System.out.println(x.getKey()));
-
+        return hm;
     }
 
     public LinkedHashMap<Comic, ArrayList<LocalDate>> getPopular() {

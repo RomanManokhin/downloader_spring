@@ -14,9 +14,6 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public void reserveComic(ComicBase comicBase, UsersDB usersDB){
-
-    }
 
     public String getName() {
         return name;

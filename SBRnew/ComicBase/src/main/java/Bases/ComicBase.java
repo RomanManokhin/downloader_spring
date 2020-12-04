@@ -17,7 +17,7 @@ public class ComicBase implements Serializable {
         comicDB = new TreeMap<>();
     }
 
-    public void InitDb() {
+    public void initDb() {
         comicDB.put(1, new Comic("Star Wars 1", "Lucas", 670, "scienceFiction",
                 1985, 15, 25, "Star Wars", 5));
         comicDB.put(2, new Comic("Star Wars 2", "Lucas", 570, "scienceFiction",
@@ -56,7 +56,7 @@ public class ComicBase implements Serializable {
         File file = new File(dbName);
         if (!file.exists()) {
             comicDB = new TreeMap<>();
-            InitDb();
+            initDb();
             serialization.serialization(comicDB, dbName);
         } else {
             comicDB = (SortedMap<Integer, Comic>) serialization.deSerialization("ComicDB.txt");

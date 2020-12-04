@@ -2,10 +2,10 @@ package Start;
 
 import Bases.ComicBase;
 import Bases.UsersDB;
-import Discount.Discount;
 import Menu.AdminMenuUi;
 import Menu.UserMenuUi;
-import Discount.PopularityComic;
+import popularComic.PopularityComic;
+import discount.DiscountBase;
 
 import java.util.Scanner;
 
@@ -17,13 +17,14 @@ public class StartProgram {
     public  void init() {
         Scanner in = new Scanner(System.in);
         ComicBase comicBase = new ComicBase();
-        Discount discount = new Discount(comicBase);
+        DiscountBase discountBase = new DiscountBase();
         PopularityComic popularityComic = new PopularityComic();
         UsersDB usersDB = new UsersDB();
 
         comicBase.loadDb("ComicDB.txt");
         popularityComic.initPopularity(comicBase);
         usersDB.userDBInit();
+        discountBase.init(comicBase);
 
         while (true) {
             System.out.println("Добро пожаловать!");
@@ -35,10 +36,10 @@ public class StartProgram {
             } else {
                 if (role.equals("admin")) {
                     AdminMenuUi adminMenuUi = new AdminMenuUi();
-                    adminMenuUi.printAdminMenu(login, comicBase, discount, usersDB, popularityComic);
+                    adminMenuUi.printAdminMenu(login, comicBase, discountBase, usersDB, popularityComic);
                 } else {
                     UserMenuUi userMenuUi = new UserMenuUi();
-                    userMenuUi.printUserMenu(login, comicBase, discount, popularityComic);
+                    userMenuUi.printUserMenu(login, comicBase, discountBase, popularityComic);
                 }
             }
         }
