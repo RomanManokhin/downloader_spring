@@ -3,8 +3,6 @@ package menu;
 import bases.ComicBase;
 
 import java.util.Scanner;
-
-
 import serrialization.Serialization;
 import start.StartProgram;
 import popularComic.PopularityComic;
@@ -13,9 +11,7 @@ import discount.DiscountBase;
 public class UserMenuUi {
     Scanner in = new Scanner(System.in);
 
-
     public void printUserMenu(String login, ComicBase comicBase, DiscountBase discountBase, PopularityComic popularityComic) {
-
         while (true) {
             System.out.println("Добро пожаловать: " + login);
             System.out.println("Что вы хотите сделать? ");
@@ -76,7 +72,10 @@ public class UserMenuUi {
                         break;
                     }
                     case 4: {
-                        System.out.println("В разработк е");
+                        System.out.println("---------------------------------------");
+                        System.out.println("Новинки!!!");
+                        System.out.println("---------------------------------------");
+                        comicBase.newComic().forEach(System.out::println);
                         break;
                     }
                     case 5: {

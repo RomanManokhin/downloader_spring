@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class UsersDB implements Serializable {
     private Map<String, User> userDB = new HashMap<>();
-
+    Scanner in = new Scanner(System.in);
     Serialization serialization = new Serialization();
 
     public void userDBInit() {
@@ -29,7 +29,6 @@ public class UsersDB implements Serializable {
 
     public void userCreate() {
         while (true) {
-            Scanner in = new Scanner(System.in);
             System.out.println("Введите логин: ");
             String newLogin = in.next();
             if (userDB.containsKey(newLogin)) {
@@ -54,7 +53,6 @@ public class UsersDB implements Serializable {
     public String start(String login) {
         String role = "wrong";
         userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
-        Scanner in = new Scanner(System.in);
         if (!userDB.containsKey(login)) {
             System.out.println("Такой пользователь не найден в системе");
             System.out.println("Выберите что необходимо сделать: ");
@@ -82,7 +80,6 @@ public class UsersDB implements Serializable {
     }
 
     public String authorization(String login) {
-        Scanner in = new Scanner(System.in);
         userDB = (Map<String, User>) serialization.deSerialization("loginData.txt");
         while (true) {
             System.out.print("Введите пароль: ");

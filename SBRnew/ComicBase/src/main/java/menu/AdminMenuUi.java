@@ -6,6 +6,8 @@ import serrialization.Serialization;
 import start.StartProgram;
 import popularComic.PopularityComic;
 import discount.DiscountBase;
+
+import java.time.LocalDate;
 import java.util.*;
 
 public class AdminMenuUi {
@@ -61,15 +63,24 @@ public class AdminMenuUi {
                         System.out.println("Введите жанр комикса: ");
                         String genre = in.next();
 
-                        int yearOfPublishing;
-                        do {
-                            System.out.println("Введите год публикации комикса: ");
-                            while (!in.hasNextInt()) {
-                                System.out.println("Введите год публикации комикса: ");
-                                in.next();
+
+                        Integer year = null;
+                        Integer month = null;
+                        Integer day = null;
+                        boolean b = true;
+                        while (b) {
+                            System.out.println("Введите год публикации комикса, в формате YYYY-MM-DD: ");
+                            String yearOfPublishing = in.next();
+                            String[] arrString = yearOfPublishing.split("-");
+                            if (yearOfPublishing.matches("[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])")) {
+                                for (int i = 0; i < 3; i++) {
+                                    year = Integer.parseInt(arrString[0]);
+                                    month = Integer.parseInt(arrString[1]);
+                                    day = Integer.parseInt(arrString[2]);
+                                }
+                                b = false;
                             }
-                            yearOfPublishing = in.nextInt();
-                        } while (yearOfPublishing <= 0);
+                        }
 
                         int costPrice;
                         do {
@@ -105,7 +116,7 @@ public class AdminMenuUi {
                             numberOfComic = in.nextInt();
                         } while (numberOfComic <= 0);
                         System.out.println("new id = " + (comicBase.getComicDB().lastKey() + 1));
-                        comicBase.addComic(nameComic, nameAuthor, numberOfPages, genre, yearOfPublishing, costPrice, priceForSale, comicSeries, numberOfComic);
+                        comicBase.addComic(nameComic, nameAuthor, numberOfPages, genre, LocalDate.of(year, month, day), costPrice, priceForSale, comicSeries, numberOfComic);
                         System.out.println("Комикс " + nameComic + " добавлен");
                         break;
                     }
@@ -205,18 +216,38 @@ public class AdminMenuUi {
                                         break;
                                     }
                                     case 5: {
-                                        int yearOfPublishing;
-                                        do {
-                                            System.out.println("Введите год публикации комикса: ");
-                                            while (!in.hasNextInt()) {
-                                                System.out.println("Введите год публикации комикса: ");
-                                                in.next();
+//                                        int yearOfPublishing;
+//                                        do {
+//                                            System.out.println("Введите год публикации комикса: ");
+//                                            while (!in.hasNextInt()) {
+//                                                System.out.println("Введите год публикации комикса: ");
+//                                                in.next();
+//                                            }
+//                                            yearOfPublishing = in.nextInt();
+//                                            comicBase.getComicDB().get(id).setYearOfPublishing(yearOfPublishing);
+//                                            serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
+//                                        } while (yearOfPublishing <= 0);
+//                                        System.out.println("Год публикации изменён на : " + yearOfPublishing);
+
+                                        Integer year = null;
+                                        Integer month = null;
+                                        Integer day = null;
+                                        boolean b = true;
+                                        while (b) {
+                                            System.out.println("Введите год публикации комикса, в формате YYYY-MM-DD: ");
+                                            String yearOfPublishing = in.next();
+                                            String[] arrString = yearOfPublishing.split("-");
+                                            if (yearOfPublishing.matches("[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])")) {
+                                                for (int i = 0; i < 3; i++) {
+                                                    year = Integer.parseInt(arrString[0]);
+                                                    month = Integer.parseInt(arrString[1]);
+                                                    day = Integer.parseInt(arrString[2]);
+                                                }
+                                                b = false;
                                             }
-                                            yearOfPublishing = in.nextInt();
-                                            comicBase.getComicDB().get(id).setYearOfPublishing(yearOfPublishing);
-                                            serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
-                                        } while (yearOfPublishing <= 0);
-                                        System.out.println("Год публикации изменён на : " + yearOfPublishing);
+                                        }
+                                        comicBase.getComicDB().get(id).setYearOfPublishing(LocalDate.of(year, month, day));
+                                        serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
                                         break;
                                     }
                                     case 6: {
@@ -399,7 +430,10 @@ public class AdminMenuUi {
                         break;
                     }
                     case 9: {
-                        System.out.println("В разработке ╮(￣_￣)╭");
+                        System.out.println("---------------------------------------");
+                        System.out.println("Новинки!!!");
+                        System.out.println("---------------------------------------");
+                        comicBase.newComic().forEach(System.out::println);
                         break;
                     }
                     case 10: {

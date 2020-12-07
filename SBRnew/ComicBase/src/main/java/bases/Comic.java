@@ -1,6 +1,7 @@
 package bases;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Comic implements Serializable {
 
@@ -8,13 +9,13 @@ public class Comic implements Serializable {
     private String nameAuthor; //имя автора
     private int numberOfPages; //количество страниц
     private String genre; //жанр
-    private int yearOfPublishing; //год публикации
+    private LocalDate yearOfPublishing; //год публикации
     private int costPrice; //базовая цена
     private double priceForSale; //цена продажи
     private String comicSeries; //продолжение?
     private int numberOfComic; //количество комиксов в наличии
 
-    public Comic(String nameComic, String nameAuthor, int numberOfPages, String genre, int yearOfPublishing,
+    public Comic(String nameComic, String nameAuthor, int numberOfPages, String genre, LocalDate yearOfPublishing,
                  int costPrice, double priceForSale, String comicSeries, int numberOfComic) {
         this.nameComic = nameComic;
         this.nameAuthor = nameAuthor;
@@ -60,11 +61,11 @@ public class Comic implements Serializable {
         this.genre = genre;
     }
 
-    public int getYearOfPublishing() {
+    public LocalDate getYearOfPublishing() {
         return yearOfPublishing;
     }
 
-    public void setYearOfPublishing(int yearOfPublishing) {
+    public void setYearOfPublishing(LocalDate yearOfPublishing) {
         this.yearOfPublishing = yearOfPublishing;
     }
 
@@ -102,7 +103,7 @@ public class Comic implements Serializable {
 
     @Override
     public String toString() {
-        return "Comic{" +
+        return
                 "Название комикса -'" + nameComic + '\'' +
                 ", имя автора -'" + nameAuthor + '\'' +
                 ", страницы -" + numberOfPages +
@@ -112,7 +113,7 @@ public class Comic implements Serializable {
                 ", цена продажи -" + priceForSale +
                 ", вселенная -'" + comicSeries + '\'' +
                 ", количество экземпрляров -'" + numberOfComic +
-                '}' + "\n";
+                 "\n";
     }
 
 
