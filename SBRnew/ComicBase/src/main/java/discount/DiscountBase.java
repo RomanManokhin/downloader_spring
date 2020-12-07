@@ -5,24 +5,26 @@ import bases.ComicBase;
 import serrialization.Serialization;
 
 import java.io.File;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class DiscountBase {
 
     private SortedMap<Integer, Comic> newYear = new TreeMap<>();
     private SortedMap<Integer, Comic> womenDay = new TreeMap<>();
     private SortedMap<Integer, Comic> manDay = new TreeMap<>();
-
     Serialization serialization = new Serialization();
+
 
     public void init(ComicBase comicBase) {
 
         File DiscountNewYear = new File("DiscountNewYear.txt");
         if (!DiscountNewYear.isFile()) {
             newYear.put(1, comicBase.getComicDB().get(2));
+            newYear.get(1).setPriceForSale(newYear.get(1).getPriceForSale() - (newYear.get(1).getPriceForSale() * 20 / 100));
             newYear.put(2, comicBase.getComicDB().get(3));
+            newYear.get(2).setPriceForSale(newYear.get(2).getPriceForSale() - (newYear.get(2).getPriceForSale() * 20 / 100));
             newYear.put(3, comicBase.getComicDB().get(4));
+            newYear.get(3).setPriceForSale(newYear.get(3).getPriceForSale() - (newYear.get(3).getPriceForSale() * 20 / 100));
             serialization.serialization(newYear, "DiscountNewYear.txt");
         } else {
             newYear = (SortedMap<Integer, Comic>) serialization.deSerialization("DiscountNewYear.txt");
@@ -50,19 +52,23 @@ public class DiscountBase {
     }
 
     public boolean addDiscount(int choice, int id, ComicBase comicBase) {
+
         if (newYear.containsKey(id) || womenDay.containsKey(id) || manDay.containsKey(id)) {
             return false;
         } else {
             if (choice == 1) {
                 newYear.put(id, comicBase.getComicDB().get(id));
+//                newYear.get(id).setPriceForSale(newYear.get(id).getPriceForSale() - newYear.get(id).getPriceForSale() * 20 / 100);
                 serialization.serialization(newYear, "DiscountNewYear.txt");
                 return true;
             } else if (choice == 2) {
                 womenDay.put(id, comicBase.getComicDB().get(id));
+                womenDay.get(id).setPriceForSale(womenDay.get(id).getPriceForSale() - womenDay.get(id).getPriceForSale() * 20 / 100);
                 serialization.serialization(womenDay, "DiscountWomenDay.txt");
                 return true;
             } else {
                 manDay.put(id, comicBase.getComicDB().get(id));
+                manDay.get(id).setPriceForSale(manDay.get(id).getPriceForSale() - manDay.get(id).getPriceForSale() * 20 / 100);
                 serialization.serialization(manDay, "DiscountManDay.txt");
                 return true;
             }
@@ -98,14 +104,34 @@ public class DiscountBase {
     }
 
     public SortedMap<Integer, Comic> printDiscountNewYear() {
+        Double price = 0d;
+        Iterator iterator = newYear.keySet().iterator();
+        while (iterator.hasNext()) {
+            Integer key = (Integer) iterator.next();
+            price = newYear.get(key).getPriceForSale();
+            Double newPrice = price - price * 20 / 100;
+        }
+
         return newYear;
     }
 
     public SortedMap<Integer, Comic> printDiscountWomenDay() {
+        SortedMap<Integer, Comic> cache = womenDay;
+        for (Map.Entry<Integer, Comic> entry : cache.entrySet()) {
+            entry.getValue().setPriceForSale(entry.getValue().getPriceForSale() -
+                    (entry.getValue().getPriceForSale() * 20 / 100));
+        }
         return womenDay;
     }
 
+
     public SortedMap<Integer, Comic> printDiscountManDay() {
+        SortedMap<Integer, Comic> cache = manDay;
+        for (Map.Entry<Integer, Comic> entry : cache.entrySet()) {
+            entry.getValue().setPriceForSale(entry.getValue().getPriceForSale() -
+                    (entry.getValue().getPriceForSale() * 20 / 100));
+
+        }
         return manDay;
     }
 
@@ -132,7 +158,6 @@ public class DiscountBase {
     public void setManDay(SortedMap<Integer, Comic> manDay) {
         this.manDay = manDay;
     }
-
 
 
 }

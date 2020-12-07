@@ -466,7 +466,6 @@ public class AdminMenuUi {
                         break;
                     }
                     case 17: {
-//                        popularityComic.printBestOfMonth();
                         System.out.println("-----------------------------------------");
                         System.out.println("Список самых популярных комиксов за месяц");
                         System.out.println("-----------------------------------------");
