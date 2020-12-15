@@ -216,19 +216,6 @@ public class AdminMenuUi {
                                         break;
                                     }
                                     case 5: {
-//                                        int yearOfPublishing;
-//                                        do {
-//                                            System.out.println("Введите год публикации комикса: ");
-//                                            while (!in.hasNextInt()) {
-//                                                System.out.println("Введите год публикации комикса: ");
-//                                                in.next();
-//                                            }
-//                                            yearOfPublishing = in.nextInt();
-//                                            comicBase.getComicDB().get(id).setYearOfPublishing(yearOfPublishing);
-//                                            serialization.serialization(comicBase.getComicDB(), "ComicDB.txt");
-//                                        } while (yearOfPublishing <= 0);
-//                                        System.out.println("Год публикации изменён на : " + yearOfPublishing);
-
                                         Integer year = null;
                                         Integer month = null;
                                         Integer day = null;
@@ -533,15 +520,15 @@ public class AdminMenuUi {
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Новый год:");
         System.out.println("------------------------------------------------------------------------------------");
-        discountBase.printDiscountNewYear().forEach((k, v) -> System.out.println(k + ": " + v));
+        discountBase.printDiscountNewYear();
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("8 Марта:");
         System.out.println("------------------------------------------------------------------------------------");
-        discountBase.printDiscountWomenDay().forEach((k, v) -> System.out.println(k + ": " + v));
+        discountBase.printDiscountWomenDay();
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("23 Февраля:");
         System.out.println("------------------------------------------------------------------------------------");
-        discountBase.printDiscountManDay().forEach((k, v) -> System.out.println(k + ": " + v));
+        discountBase.printDiscountManDay();
         System.out.println("------------------------------------------------------------------------------------");
     }
 

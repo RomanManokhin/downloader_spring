@@ -138,15 +138,15 @@ public class UserMenuUi {
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Новый год:");
         System.out.println("------------------------------------------------------------------------------------");
-        discountBase.printDiscountNewYear().forEach((k, v) -> System.out.println(k + ": " + v));
+        discountBase.printDiscountNewYear();
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("8 Марта:");
         System.out.println("------------------------------------------------------------------------------------");
-        discountBase.printDiscountWomenDay().forEach((k, v) -> System.out.println(k + ": " + v));
+        discountBase.printDiscountWomenDay();
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("23 Февраля:");
         System.out.println("------------------------------------------------------------------------------------");
-        discountBase.printDiscountManDay().forEach((k, v) -> System.out.println(k + ": " + v));
+        discountBase.printDiscountManDay();
         System.out.println("------------------------------------------------------------------------------------");
     }
 
