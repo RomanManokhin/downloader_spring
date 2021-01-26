@@ -31,4 +31,11 @@ public class MainMenuImpl implements MainMenu {
 
         }
     }
+
+    @Override
+    public String takePathFile() {
+        System.out.println("Use that - src/main/resources/info/data.txt");
+        System.out.print("Enter file path: ");
+        return in.nextLine();
+    }
 }

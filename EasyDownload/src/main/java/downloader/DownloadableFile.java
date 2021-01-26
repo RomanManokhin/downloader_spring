@@ -6,4 +6,5 @@ public interface DownloadableFile {
 
     List<String> getUrlFromFile();
 
+
 }

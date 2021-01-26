@@ -12,9 +12,10 @@ public class Main {
 
         String name = new MainMenuImpl().takeName();
         int countThreads = new MainMenuImpl().takeThreads();
-        List<String> urls = new DownloadableFileImpl().getUrlFromFile();
+        String pathFile = new MainMenuImpl().takePathFile();
+        List<String> urlss = new DownloadableFileImpl().getUrlFromFile();
 
-        new ConcurrentClassImpl().runThreads(name,countThreads, urls.size());
+        new ConcurrentClassImpl().runThreads(name,countThreads, urlss.size());
 
 
 
