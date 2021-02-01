@@ -30,8 +30,8 @@ public class MainMenuImpl implements MainMenu {
             System.out.println("Use that - src/main/resources/info/data.txt");
             System.out.print("Enter file path: ");
             String pathFile = in.next();
-            boolean extensionСheck = pathFile.endsWith(".txt");
-            if (extensionСheck) {
+            boolean checkExtension = pathFile.endsWith(".txt");
+            if (checkExtension) {
                 return pathFile;
             } else {
                 System.out.println("File extension is not .txt\n");
