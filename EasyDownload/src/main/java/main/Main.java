@@ -1,22 +1,24 @@
 package main;
 
-import downloader.ConcurrentClassImpl;
-import downloader.DownloadableFileImpl;
+import downloader.BootPreparationImpl;
+import downloader.MultiThreadedDownloaderImpl;
 import menu.MainMenuImpl;
 
-import java.io.IOException;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        String name = new MainMenuImpl().takeName();
-        int countThreads = new MainMenuImpl().takeThreads();
-        String pathFile = new MainMenuImpl().takePathFile();
-        List<String> urlss = new DownloadableFileImpl().getUrlFromFile();
+        MainMenuImpl menu = new MainMenuImpl();
+        String pathFile = menu.takePathFile();
+        int countThreads = menu.takeThreads();
 
-        new ConcurrentClassImpl().runThreads(name,countThreads, urlss.size());
+        BootPreparationImpl bootPreparation = new BootPreparationImpl();
+        List<String> urls = bootPreparation.parsingFileForUrls(pathFile);
+        List<String> fileNames = bootPreparation.parsingFileForNames(urls);
 
+        MultiThreadedDownloaderImpl downloader = new MultiThreadedDownloaderImpl();
+        downloader.startDownloading(countThreads, urls.size(), urls, fileNames);
 
 
     }

@@ -1,7 +1,5 @@
 package downloader;
 
-public interface Downloader {
-
-    String downloadFiles();
+public interface Downloader extends Runnable{
 
 }
