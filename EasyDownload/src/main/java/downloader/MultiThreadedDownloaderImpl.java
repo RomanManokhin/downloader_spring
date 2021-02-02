@@ -11,7 +11,7 @@ public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
         ExecutorService executorService = Executors.newFixedThreadPool(countThreads);
 
         for (int i = 0; i < countUrls; i++) {
-            executorService.submit(new DownloaderImpl(urls.get(i), fileNames.get(i)));
+            executorService.submit(new Downloader(urls.get(i), fileNames.get(i)));
         }
 
         executorService.shutdown();
