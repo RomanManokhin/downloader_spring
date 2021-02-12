@@ -25,6 +25,7 @@ public class Application {
                 MainMenu.class);
         String pathFile = menu.takePathFile();
         int countThreads = menu.takeThreads();
+        int downloadSpeed = menu.downloadSpeed();
 
         BootPreparation boot = ctx.getBean("bootPreparation",
                 BootPreparation.class);
@@ -34,7 +35,7 @@ public class Application {
         MultiThreadedDownloader downloader = ctx.getBean("multiThreadedDownloader",
                 MultiThreadedDownloader.class);
 
-        downloader.startDownloading(countThreads, urls.size(), urls, fileNames);
+        downloader.startDownloading(countThreads, urls.size(), urls, fileNames, downloadSpeed);
     }
 
 }

@@ -44,4 +44,22 @@ public class MainMenuImpl implements MainMenu {
         }
 
     }
+
+    @Override
+    public int downloadSpeed() {
+        while (true) {
+            System.out.print("enter download speed in kb: ");
+            String temp = in.next();
+            try {
+                countThread = Integer.parseInt(temp);
+                if (countThread >= 0 && countThread <= 1000) {
+                    return countThread * 1024;
+                } else {
+                    System.out.println("Speed must be greater than 0kb and less than 1000kb");
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("No number entered");
+            }
+        }
+    }
 }

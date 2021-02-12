@@ -6,5 +6,5 @@ public interface MainMenu {
 
     String takePathFile();
 
-
+    int downloadSpeed();
 }
