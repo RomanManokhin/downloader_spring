@@ -19,20 +19,20 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(DownloaderConfiguration.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DownloaderConfiguration.class);
 
-        MainMenu menu = ctx.getBean("mainMenu",
+        MainMenu menu = applicationContext.getBean("mainMenu",
                 MainMenu.class);
         String pathFile = menu.takePathFile();
         int countThreads = menu.takeThreads();
         int downloadSpeed = menu.downloadSpeed();
 
-        BootPreparation boot = ctx.getBean("bootPreparation",
+        BootPreparation boot = applicationContext.getBean("bootPreparation",
                 BootPreparation.class);
         List<String> urls = boot.parsingFileForUrls(pathFile);
         List<String> fileNames = boot.parsingFileForNames(urls);
 
-        MultiThreadedDownloader downloader = ctx.getBean("multiThreadedDownloader",
+        MultiThreadedDownloader downloader = applicationContext.getBean("multiThreadedDownloader",
                 MultiThreadedDownloader.class);
 
         downloader.startDownloading(countThreads, urls.size(), urls, fileNames, downloadSpeed);

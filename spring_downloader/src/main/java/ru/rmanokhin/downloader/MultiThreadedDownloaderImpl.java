@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * класс для загрузки в многопоточном режиме
+ */
 public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
     /**
      * метод запускающий процесс скачивания файлов в многопоточном режиме
-     * */
+     */
     @Override
     public void startDownloading(int countThreads, int countUrls, List<String> urls, List<String> fileNames, int downloadSpeed) {
         ExecutorService executorService = Executors.newFixedThreadPool(countThreads);

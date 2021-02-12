@@ -1,13 +1,13 @@
 package ru.rmanokhin.downloader;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Paths;
 
+/**
+ * Класс который производит загрузку файла
+ */
 public class Downloader implements Runnable {
 
     /**
@@ -38,16 +38,16 @@ public class Downloader implements Runnable {
 
         try {
             /**
-             * открывается поток для обработки
+             * переменная для потока из url
              * */
-            InputStream is = new URL(fileUrl).openStream();
+            InputStream inputStream = new URL(fileUrl).openStream();
 
             /**
              * передаём поток в байтовый массив
              */
-            byte[] bytes = IOUtils.toByteArray(is);
+            byte[] bytes = IOUtils.toByteArray(inputStream);
 
-            FileOutputStream fos = new FileOutputStream("c:/testMusic/" + fileName, true);
+            FileOutputStream fileOutputStream = new FileOutputStream("c:/testMusic/" + fileName, true);
 
             /**
              * буфер для считывания из потока
@@ -57,39 +57,32 @@ public class Downloader implements Runnable {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-            int size;
-            while ((size = byteArrayInputStream.read(buffer, 0, downloadSpeed)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, size);
+            /**
+             * переменная для счета прочитанных байт из потока за итерацию
+             * */
+            int numberOfBytesRead;
+            while ((numberOfBytesRead = byteArrayInputStream.read(buffer, 0, downloadSpeed)) != -1) {
 
-                long resultWaitTime = Math.round((double) (size / downloadSpeed));
+                byteArrayOutputStream.write(buffer, 0, numberOfBytesRead);
+
                 try {
-                    if (size == downloadSpeed) {
-                        Thread.sleep(1000);
-                    } else {
-                        Thread.sleep(1000 / resultWaitTime);
-                    }
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
-            byte[] file = byteArrayOutputStream.toByteArray();
-            fos.write(file);
-            fos.close();
+            /**
+             * переменная для буфера файла
+             * */
+            byte[] bufferFile = byteArrayOutputStream.toByteArray();
+
+            fileOutputStream.write(bufferFile);
+            fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        //чтение всего файла в массив байт
-//            byte[] content1 = url.openStream().readAllBytes();
-        //указываем количество читаемых байт
-
-//        try {
-//            FileUtils.copyURLToFile(new URL(fileUrl), new File("c:/testMusic/" + fileName));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         System.out.println(Thread.currentThread() + " finished");
     }
 

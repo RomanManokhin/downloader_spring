@@ -2,19 +2,23 @@ package ru.rmanokhin.menu;
 
 import java.util.Scanner;
 
+/**
+ * Класс для получения данных от пользователя, что бы производить загрузку по его параметрам
+ */
 public class MainMenuImpl implements MainMenu {
     Scanner in = new Scanner(System.in);
-    int countThread;
+
     /**
      * метод для получения количества потоков скачивания от пользователя
-     * */
+     */
     @Override
     public int takeThreads() {
         while (true) {
             System.out.print("Enter the number of streams to download: ");
             String temp = in.next();
+
             try {
-                countThread = Integer.parseInt(temp);
+                int countThread = Integer.parseInt(temp);
                 if (countThread >= 0) {
                     return countThread;
                 } else {
@@ -27,8 +31,8 @@ public class MainMenuImpl implements MainMenu {
     }
 
     /**
-     * метод для получения места хранения файла из которого необходимо брать ссылки
-     * */
+     * метод для получения места хранения файла из которого необходимо брать ссылки для скачивания
+     */
     @Override
     public String takePathFile() {
         while (true) {
@@ -45,15 +49,19 @@ public class MainMenuImpl implements MainMenu {
 
     }
 
+    /**
+     * метод для получения скорости скачивания файлов
+     */
     @Override
     public int downloadSpeed() {
         while (true) {
-            System.out.print("enter download speed in kb: ");
+            System.out.print("Enter download speed in kb: ");
             String temp = in.next();
+
             try {
-                countThread = Integer.parseInt(temp);
-                if (countThread >= 0 && countThread <= 1000) {
-                    return countThread * 1024;
+                int downloadSpeed = Integer.parseInt(temp);
+                if (downloadSpeed >= 0 && downloadSpeed <= 1000) {
+                    return downloadSpeed * 1024;
                 } else {
                     System.out.println("Speed must be greater than 0kb and less than 1000kb");
                 }
