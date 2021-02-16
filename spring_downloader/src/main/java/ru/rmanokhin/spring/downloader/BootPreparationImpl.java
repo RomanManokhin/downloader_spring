@@ -1,10 +1,6 @@
-package ru.rmanokhin.downloader;
+package ru.rmanokhin.spring.downloader;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import ru.rmanokhin.menu.MainMenu;
-import ru.rmanokhin.menu.MainMenuImpl;
 
 import java.io.IOException;
 import java.net.URI;

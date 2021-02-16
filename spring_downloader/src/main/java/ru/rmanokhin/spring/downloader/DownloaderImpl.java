@@ -1,6 +1,8 @@
-package ru.rmanokhin.downloader;
+package ru.rmanokhin.spring.downloader;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
@@ -8,11 +10,13 @@ import java.net.URL;
 /**
  * Класс который производит загрузку файла
  */
-public class Downloader implements Runnable {
+
+public class DownloaderImpl implements Downloader {
 
     /**
      * поле для ссылки для скачивание файла
      */
+
     private final String fileUrl;
 
     /**
@@ -26,7 +30,7 @@ public class Downloader implements Runnable {
     private final int downloadSpeed;
 
 
-    public Downloader(String fileUrl, String fileName, int downloadSpeed) {
+    public DownloaderImpl(String fileUrl, String fileName, int downloadSpeed) {
         this.fileUrl = fileUrl;
         this.fileName = fileName;
         this.downloadSpeed = downloadSpeed;
@@ -86,6 +90,36 @@ public class Downloader implements Runnable {
         System.out.println(Thread.currentThread() + " finished");
     }
 
+    public static DownloaderBuilder builder(){
+        return new DownloaderBuilder();
+    }
 
+    public static class DownloaderBuilder {
+        private String fileUrl;
+        private String fileName;
+        private int downloadSpeed;
+
+        public DownloaderBuilder fileUrl(String fileUrl) {
+            this.fileUrl = fileUrl;
+            return this;
+        }
+
+        public DownloaderBuilder fileName(String fileName) {
+            this.fileName = fileName;
+            return this;
+        }
+
+        public DownloaderBuilder downloadSpeed(int downloadSpeed) {
+            this.downloadSpeed = downloadSpeed;
+            return this;
+        }
+
+        public DownloaderImpl build() {
+            return new DownloaderImpl(fileUrl, fileName, downloadSpeed);
+        }
+    }
 }
+
+
+
 

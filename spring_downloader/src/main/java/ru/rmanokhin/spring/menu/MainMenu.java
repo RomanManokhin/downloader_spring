@@ -1,4 +1,4 @@
-package ru.rmanokhin.menu;
+package ru.rmanokhin.spring.menu;
 
 public interface MainMenu {
 

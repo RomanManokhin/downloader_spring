@@ -1,4 +1,4 @@
-package ru.rmanokhin.downloader;
+package ru.rmanokhin.spring.downloader;
 
 import java.util.List;
 

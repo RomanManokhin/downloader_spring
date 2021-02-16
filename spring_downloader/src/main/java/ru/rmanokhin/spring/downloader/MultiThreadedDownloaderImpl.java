@@ -1,8 +1,7 @@
-package ru.rmanokhin.downloader;
+package ru.rmanokhin.spring.downloader;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -13,6 +12,11 @@ import java.util.concurrent.Executors;
  */
 @Component
 public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
+
+
+//    public Downloader downloader;
+
+
     /**
      * метод запускающий процесс скачивания файлов в многопоточном режиме
      */
@@ -21,7 +25,11 @@ public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
         ExecutorService executorService = Executors.newFixedThreadPool(countThreads);
 
         for (int i = 0; i < countUrls; i++) {
-            executorService.submit(new Downloader(urls.get(i), fileNames.get(i), downloadSpeed));
+            executorService.submit(DownloaderImpl.builder()
+                    .downloadSpeed(downloadSpeed)
+                    .fileName(fileNames.get(i))
+                    .fileUrl(urls.get(i))
+                    .build());
         }
 
         executorService.shutdown();

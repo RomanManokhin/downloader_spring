@@ -1,11 +1,6 @@
-package ru.rmanokhin.menu;
+package ru.rmanokhin.spring.menu;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 //import ru.rmanokhin.spring.DownloaderConfiguration;
 
 import java.util.Scanner;
