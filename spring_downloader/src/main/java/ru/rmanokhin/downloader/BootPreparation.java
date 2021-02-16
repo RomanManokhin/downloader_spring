@@ -6,6 +6,6 @@ public interface BootPreparation {
 
     List<String> parsingFileForUrls(String pathFile);
 
-    List<String> parsingFileForNames(List<String> urls);
+    List<String> parsingListUrlsForNames(List<String> urls);
 
 }

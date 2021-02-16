@@ -1,12 +1,22 @@
 package ru.rmanokhin.menu;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+//import ru.rmanokhin.spring.DownloaderConfiguration;
+
 import java.util.Scanner;
 
 /**
  * Класс для получения данных от пользователя, что бы производить загрузку по его параметрам
  */
+@Component
 public class MainMenuImpl implements MainMenu {
     Scanner in = new Scanner(System.in);
+
 
     /**
      * метод для получения количества потоков скачивания от пользователя
@@ -19,10 +29,10 @@ public class MainMenuImpl implements MainMenu {
 
             try {
                 int countThread = Integer.parseInt(temp);
-                if (countThread >= 0) {
+                if (countThread > 0) {
                     return countThread;
                 } else {
-                    System.out.println("The number should be >= 0");
+                    System.out.println("The number should be > 0");
                 }
             } catch (NumberFormatException ex) {
                 System.out.println("No number entered");

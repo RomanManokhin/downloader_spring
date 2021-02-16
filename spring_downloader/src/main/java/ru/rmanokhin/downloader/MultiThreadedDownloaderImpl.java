@@ -1,5 +1,9 @@
 package ru.rmanokhin.downloader;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,6 +11,7 @@ import java.util.concurrent.Executors;
 /**
  * класс для загрузки в многопоточном режиме
  */
+@Component
 public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
     /**
      * метод запускающий процесс скачивания файлов в многопоточном режиме
