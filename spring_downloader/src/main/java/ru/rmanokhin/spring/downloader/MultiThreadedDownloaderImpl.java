@@ -1,6 +1,5 @@
 package ru.rmanokhin.spring.downloader;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,15 +12,13 @@ import java.util.concurrent.Executors;
 @Component
 public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
 
-
-//    public Downloader downloader;
-
-
     /**
      * метод запускающий процесс скачивания файлов в многопоточном режиме
      */
     @Override
-    public void startDownloading(int countThreads, int countUrls, List<String> urls, List<String> fileNames, int downloadSpeed) {
+    public void startDownloading(int countThreads, int countUrls, List<String> urls, List<String> fileNames,
+                                 int downloadSpeed, String folderForDownload) {
+
         ExecutorService executorService = Executors.newFixedThreadPool(countThreads);
 
         for (int i = 0; i < countUrls; i++) {
@@ -29,6 +26,7 @@ public class MultiThreadedDownloaderImpl implements MultiThreadedDownloader {
                     .downloadSpeed(downloadSpeed)
                     .fileName(fileNames.get(i))
                     .fileUrl(urls.get(i))
+                    .pathToFolder(folderForDownload)
                     .build());
         }
 

@@ -2,9 +2,11 @@ package ru.rmanokhin.spring.menu;
 
 public interface MainMenu {
 
-    int takeThreads();
+    int menuCountThreads();
 
-    String takePathFile();
+    String menuTakePathFile();
 
-    int downloadSpeed();
+    int menuDownloadSpeed();
+
+    String menuPathDownload();
 }

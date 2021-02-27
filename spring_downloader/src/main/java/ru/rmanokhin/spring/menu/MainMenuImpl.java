@@ -1,78 +1,93 @@
 package ru.rmanokhin.spring.menu;
 
 import org.springframework.stereotype.Component;
-//import ru.rmanokhin.spring.DownloaderConfiguration;
+import ru.rmanokhin.spring.downloader.UserParameters;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
- * Класс для получения данных от пользователя, что бы производить загрузку по его параметрам
+ * Класс с меню для получения данных от пользователя, что бы производить загрузку по его параметрам
  */
 @Component
 public class MainMenuImpl implements MainMenu {
-    Scanner in = new Scanner(System.in);
 
+    private final UserParameters userParameters;
 
-    /**
-     * метод для получения количества потоков скачивания от пользователя
-     */
+    public MainMenuImpl(UserParameters userParameters) {
+        this.userParameters = userParameters;
+    }
+
     @Override
-    public int takeThreads() {
-        while (true) {
-            System.out.print("Enter the number of streams to download: ");
-            String temp = in.next();
+    public int menuCountThreads() {
 
+        int threads = 0;
+        do {
+            System.out.print("Enter the number of streams to download: ");
             try {
-                int countThread = Integer.parseInt(temp);
-                if (countThread > 0) {
-                    return countThread;
-                } else {
+                threads = userParameters.takeThreads();
+                if (threads <= 0) {
                     System.out.println("The number should be > 0");
                 }
-            } catch (NumberFormatException ex) {
-                System.out.println("No number entered");
+            } catch (IOException e) {
+                System.out.println("Not a number entered");
             }
-        }
+        } while (threads <= 0);
+        return threads;
     }
 
-    /**
-     * метод для получения места хранения файла из которого необходимо брать ссылки для скачивания
-     */
     @Override
-    public String takePathFile() {
-        while (true) {
+    public String menuTakePathFile() {
+        String pathFile = null;
+        do {
             System.out.println("Use that - src/main/resources/info/data.txt");
             System.out.print("Enter file path: ");
-            String pathFile = in.next();
-            boolean checkExtension = pathFile.endsWith(".txt");
-            if (checkExtension) {
-                return pathFile;
-            } else {
-                System.out.println("File extension is not .txt\n");
-            }
-        }
-
-    }
-
-    /**
-     * метод для получения скорости скачивания файлов
-     */
-    @Override
-    public int downloadSpeed() {
-        while (true) {
-            System.out.print("Enter download speed in kb: ");
-            String temp = in.next();
-
             try {
-                int downloadSpeed = Integer.parseInt(temp);
-                if (downloadSpeed >= 0 && downloadSpeed <= 1000) {
-                    return downloadSpeed * 1024;
-                } else {
-                    System.out.println("Speed must be greater than 0kb and less than 1000kb");
+                pathFile = userParameters.takePathFile();
+                if (pathFile == null) {
+                    System.out.println("File extension is not .txt or wrong path\n");
                 }
-            } catch (NumberFormatException ex) {
-                System.out.println("No number entered");
+            } catch (Exception ignored) {
+
             }
-        }
+
+        } while (pathFile == null);
+        return pathFile;
     }
+
+    @Override
+    public int menuDownloadSpeed() {
+        int downloadSpeed = 0;
+        do {
+            System.out.print("Enter download speed in kb: ");
+            try {
+                downloadSpeed = userParameters.downloadSpeed();
+                if (downloadSpeed <= 0) {
+                    System.out.println("Speed must be greater than 0kb");
+                }
+            } catch (Exception e) {
+                System.out.println("Not a number entered");
+            }
+        } while (downloadSpeed <= 0);
+        return downloadSpeed;
+    }
+
+    @Override
+    public String menuPathDownload() {
+        String pathDownload;
+
+        do {
+            System.out.println("Enter path to save files: ");
+            System.out.println("Example: C:\\folderName");
+
+            pathDownload = userParameters.pathDownload();
+            if (pathDownload == null) {
+                System.out.println("Wrong way to download\n");
+            }
+
+        } while (pathDownload == null);
+
+        return pathDownload;
+    }
+
+
 }

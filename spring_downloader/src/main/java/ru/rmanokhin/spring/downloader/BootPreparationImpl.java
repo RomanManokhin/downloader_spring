@@ -2,6 +2,7 @@ package ru.rmanokhin.spring.downloader;
 
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,10 +20,13 @@ public class BootPreparationImpl implements BootPreparation {
     /**
      * метод для парсинга файла и получения ссылок для скачивания
      */
-
     @Override
     public List<String> parsingFileForUrls(String pathFile) {
         List<String> urlsFromFile = null;
+        File file = new File(pathFile);
+        if(!file.isFile()){
+            throw new ArrayIndexOutOfBoundsException("File not found");
+        }
         try {
             urlsFromFile = Files.readAllLines(Paths.get(pathFile));
         } catch (IOException e) {
@@ -38,11 +42,15 @@ public class BootPreparationImpl implements BootPreparation {
     public List<String> parsingListUrlsForNames(List<String> urls) {
         List<String> namesForFiles = new ArrayList<>();
 
-        for (String s : urls) {
-            try {
-                namesForFiles.add(Paths.get(new URI(s).getPath()).getFileName().toString());
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+        if (urls.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException("Лист пуст");
+        } else {
+            for (String s : urls) {
+                try {
+                    namesForFiles.add(Paths.get(new URI(s).getPath()).getFileName().toString());
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return namesForFiles;

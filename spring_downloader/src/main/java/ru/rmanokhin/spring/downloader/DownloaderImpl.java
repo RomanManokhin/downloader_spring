@@ -1,8 +1,6 @@
 package ru.rmanokhin.spring.downloader;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
@@ -10,13 +8,11 @@ import java.net.URL;
 /**
  * Класс который производит загрузку файла
  */
-
 public class DownloaderImpl implements Downloader {
 
     /**
      * поле для ссылки для скачивание файла
      */
-
     private final String fileUrl;
 
     /**
@@ -30,10 +26,42 @@ public class DownloaderImpl implements Downloader {
     private final int downloadSpeed;
 
 
-    public DownloaderImpl(String fileUrl, String fileName, int downloadSpeed) {
+    /**
+     * переменная для пути сохранения файлов
+     */
+    private final String folderNameToDownload;
+
+    InputStream inputStream;
+    FileOutputStream fileOutputStream;
+    ByteArrayInputStream byteArrayInputStream;
+    ByteArrayOutputStream byteArrayOutputStream;
+
+    /**
+     * буфер для считывания из потока
+     */
+    byte[] bufferForDownload;
+
+    /**
+     * переменная для счета прочитанных байт из потока за итерацию
+     */
+    int numberOfBytesRead;
+
+    /**
+     * переменная для буфера части файла
+     */
+    byte[] bufferFile;
+
+    /**
+     * передаём поток в байтовый массив
+     */
+    byte[] bytesToStream;
+
+
+    public DownloaderImpl(String fileUrl, String fileName, int downloadSpeed, String folderNameToDownload) {
         this.fileUrl = fileUrl;
         this.fileName = fileName;
         this.downloadSpeed = downloadSpeed;
+        this.folderNameToDownload = folderNameToDownload;
     }
 
     @Override
@@ -41,33 +69,17 @@ public class DownloaderImpl implements Downloader {
         System.out.println(Thread.currentThread() + " started");
 
         try {
-            /**
-             * переменная для потока из url
-             * */
-            InputStream inputStream = new URL(fileUrl).openStream();
+            inputStream = new URL(fileUrl).openStream();
+            bytesToStream = IOUtils.toByteArray(inputStream);
+            fileOutputStream = new FileOutputStream(folderNameToDownload + "\\" + fileName, true);
+            bufferForDownload = new byte[downloadSpeed];
 
-            /**
-             * передаём поток в байтовый массив
-             */
-            byte[] bytes = IOUtils.toByteArray(inputStream);
+            byteArrayInputStream = new ByteArrayInputStream(bytesToStream);
+            byteArrayOutputStream = new ByteArrayOutputStream();
 
-            FileOutputStream fileOutputStream = new FileOutputStream("c:/testMusic/" + fileName, true);
+            while ((numberOfBytesRead = byteArrayInputStream.read(bufferForDownload, 0, downloadSpeed)) != -1) {
 
-            /**
-             * буфер для считывания из потока
-             */
-            byte[] buffer = new byte[downloadSpeed];
-
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-            /**
-             * переменная для счета прочитанных байт из потока за итерацию
-             * */
-            int numberOfBytesRead;
-            while ((numberOfBytesRead = byteArrayInputStream.read(buffer, 0, downloadSpeed)) != -1) {
-
-                byteArrayOutputStream.write(buffer, 0, numberOfBytesRead);
+                byteArrayOutputStream.write(bufferForDownload, 0, numberOfBytesRead);
 
                 try {
                     Thread.sleep(1000);
@@ -76,10 +88,7 @@ public class DownloaderImpl implements Downloader {
                 }
             }
 
-            /**
-             * переменная для буфера файла
-             * */
-            byte[] bufferFile = byteArrayOutputStream.toByteArray();
+            bufferFile = byteArrayOutputStream.toByteArray();
 
             fileOutputStream.write(bufferFile);
             fileOutputStream.close();
@@ -90,14 +99,16 @@ public class DownloaderImpl implements Downloader {
         System.out.println(Thread.currentThread() + " finished");
     }
 
-    public static DownloaderBuilder builder(){
+    public static DownloaderBuilder builder() {
         return new DownloaderBuilder();
     }
+
 
     public static class DownloaderBuilder {
         private String fileUrl;
         private String fileName;
         private int downloadSpeed;
+        private String folderNameToDownload;
 
         public DownloaderBuilder fileUrl(String fileUrl) {
             this.fileUrl = fileUrl;
@@ -114,8 +125,13 @@ public class DownloaderImpl implements Downloader {
             return this;
         }
 
+        public DownloaderBuilder pathToFolder(String folderNameToDownload) {
+            this.folderNameToDownload = folderNameToDownload;
+            return this;
+        }
+
         public DownloaderImpl build() {
-            return new DownloaderImpl(fileUrl, fileName, downloadSpeed);
+            return new DownloaderImpl(fileUrl, fileName, downloadSpeed, folderNameToDownload);
         }
     }
 }
